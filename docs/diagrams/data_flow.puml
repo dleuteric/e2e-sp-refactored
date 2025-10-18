@@ -1,0 +1,44 @@
+@startuml
+' Data flow diagram for Tracking Performance v1.2 pipeline
+left to right direction
+!theme plain
+
+skinparam rectangle {
+  BackgroundColor<<Process>> #E3F2FD
+  BorderColor<<Process>> #1565C0
+}
+
+rectangle "Space Segment\nPropagation" <<Process>> as Space
+rectangle "Ephemeris\nAlignment" <<Process>> as Align
+rectangle "Mission Geometry\nModule" <<Process>> as MGM
+rectangle "Geometry Pairing\nMetrics" <<Process>> as GPM
+rectangle "Kalman Filter" <<Process>> as KF
+rectangle "Metrics + Plots" <<Process>> as Metrics
+
+storage "Ephemeris CSV" as Ephem
+storage "Aligned Ephemeris" as Aligned
+storage "LOS Windows" as LOS
+storage "GPM Metrics" as GPMOut
+storage "Track States" as Tracks
+storage "RMSE Metrics" as RMSE
+storage "Orchestrator Hub" as Hub
+
+Space --> Ephem : CSV outputs
+Ephem --> Align
+Align --> Aligned
+Aligned --> MGM
+MGM --> LOS
+LOS --> GPM
+GPM --> GPMOut
+GPMOut --> KF
+KF --> Tracks
+Tracks --> Metrics
+Metrics --> RMSE
+Ephem --> Hub
+Aligned --> Hub
+LOS --> Hub
+GPMOut --> Hub
+Tracks --> Hub
+RMSE --> Hub
+
+@enduml

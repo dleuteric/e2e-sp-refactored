@@ -1,0 +1,40 @@
+@startuml
+' Sequence diagram for orchestrator pipeline v1.2
+!theme plain
+
+actor Operator
+participant "Quick Pipeline" as Quick
+participant "Space Segment" as Space
+participant "Align Timings" as Align
+participant "MGM" as MGM
+participant "GPM" as GPM
+participant "Run Filter" as KF
+participant "Pipeline v0" as Pipe0
+participant "Metrics" as Metrics
+participant "Plots" as Plots
+participant "Orchestrator Hub" as Hub
+
+Operator -> Quick : launch(run_id?)
+Quick -> Space : generate_ephemerides(run_id)
+Space --> Quick : ephemeris CSV paths
+Quick -> Align : align(run_id)
+Align --> Quick : aligned ephemeris
+Quick -> MGM : build_los(run_id)
+MGM --> Quick : los csv
+Quick -> GPM : compute_pairs(run_id)
+GPM --> Quick : gpm csv
+Quick -> KF : run_filter(run_id)
+KF --> Quick : track files
+Quick --> Operator : summary
+
+Operator -> Pipe0 : optional orchestrated run
+Pipe0 -> Quick : ensure core outputs
+Pipe0 -> Metrics : performance_metrics(run_id)
+Metrics --> Pipe0 : rmse csv
+Pipe0 -> Plots : plot_timeseries(run_id)
+Plots --> Pipe0 : html plot
+Pipe0 -> Hub : centralize_outputs(run_id)
+Hub --> Pipe0 : manifest
+Pipe0 --> Operator : manifest + locations
+
+@enduml

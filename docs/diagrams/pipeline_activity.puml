@@ -1,0 +1,27 @@
+@startuml
+' Activity diagram for core simulation workflow
+!theme plain
+
+start
+:Prepare run_id;
+if (Ephemeris existing?) then (no)
+  :Clean exports;
+  :Generate ephemerides via
+   flightdynamics/space_segment.py;
+else (yes)
+  :Mirror latest ephemeris
+   into run_id;
+endif
+:Align satellite & target ephemeris;
+:Derive LOS visibility windows;
+:Compute geometry pairing metrics;
+:Run Kalman filter over LOS;
+if (Orchestrator v0?) then (yes)
+  :Compute tracking performance metrics;
+  :Generate interactive plots;
+  :Centralize artefacts and
+   emit manifest;
+endif
+:Summarize run outputs;
+stop
+@enduml

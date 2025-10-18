@@ -1,0 +1,71 @@
+@startuml
+' Architecture diagram for Tracking Performance v1.2
+!theme plain
+
+package "Orchestrator" {
+  component QuickPipeline as quick
+  component PipelineV0 as pipeline
+}
+
+package "Flight Dynamics" {
+  component SpaceSegment as ss
+}
+
+package "Geometry" {
+  component AlignTimings as align
+  component MissionGeometryModule as mgm
+  component GPM as gpm
+  component PerformanceMetrics as metrics
+}
+
+package "Estimation" {
+  component RunFilter as filter
+  component PlotTimeseries as plots
+}
+
+package "Core" {
+  component Config as cfg
+  component Runtime as runtime
+  component IO as io
+}
+
+package "Exports" {
+  database Ephemeris as eph
+  database Aligned as aligned
+  database LOS as los
+  database GPMOut as gpmOut
+  database Tracks as tracks
+  database Metrics as metricsOut
+  database OrchestratorHub as hub
+}
+
+quick --> ss : run ephemeris
+quick --> align
+quick --> mgm
+quick --> gpm
+quick --> filter
+
+pipeline --> quick
+pipeline --> metrics
+pipeline --> plots
+pipeline --> hub
+
+ss --> eph
+align --> aligned
+mgm --> los
+gpm --> gpmOut
+filter --> tracks
+metrics --> metricsOut
+plots --> hub
+
+cfg --> quick
+cfg --> pipeline
+cfg --> ss
+cfg --> mgm
+cfg --> gpm
+cfg --> filter
+runtime --> quick
+io --> quick
+io --> pipeline
+
+@enduml
