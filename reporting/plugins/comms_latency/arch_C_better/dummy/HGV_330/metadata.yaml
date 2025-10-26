@@ -1,0 +1,30 @@
+# Comms Latency Plugin Metadata
+
+name: comms_latency
+title: Communications Latency Analysis
+
+description: |
+  Data age analysis comparing ground and onboard processing latency.
+  Shows p50, p90, and mean latency for both processing modes.
+
+# KPI Mapping (for trade-off tool)
+kpi_mapping:
+  primary_metric: "Ground Processing p50 [ms]"
+  higher_is_better: false  # Lower latency is better
+  thresholds:
+    excellent: 100     # < 100ms = excellent responsiveness
+    good: 1000         # < 1s = acceptable
+    marginal: 10000    # < 10s = marginal
+
+# Available metrics
+available_metrics:
+  - name: "Ground Processing p50 [ms]"
+    description: "Median latency for ground station processing"
+  
+  - name: "Onboard Processing p50 [ms]"
+    description: "Median latency for satellite onboard processing"
+
+# Plots
+plots:
+  - file: latency_plot.png
+    caption: "Latency comparison between ground and onboard processing modes"

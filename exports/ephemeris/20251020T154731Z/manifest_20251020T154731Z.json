@@ -1,0 +1,58 @@
+{
+  "run_id": "20251020T154731Z",
+  "created_utc": "2025-10-20T15:47:32Z",
+  "coordinate_frame": "ECEF",
+  "propagation": {
+    "include_J2": false,
+    "timestep_sec": 1.0,
+    "duration_min": 20.0,
+    "method": "RKF45"
+  },
+  "output": {
+    "root": "exports/ephemeris/20251020T154731Z",
+    "ephemeris_dir": "exports/ephemeris",
+    "file_format": "csv"
+  },
+  "layers": [
+    {
+      "name": "MEO_AT",
+      "enabled": true,
+      "type": "walker",
+      "total_sats": null,
+      "num_planes": 3,
+      "sats_per_plane": 8,
+      "altitude_km": 23222,
+      "inclination_deg": 56.0,
+      "eccentricity": 0.001,
+      "arg_perigee_deg": 0.0,
+      "walker_factor": 1,
+      "raan_spacing": "uniform"
+    }
+  ],
+  "files": {
+    "MEO_P1_S1": "MEO_P1_S1.csv",
+    "MEO_P1_S2": "MEO_P1_S2.csv",
+    "MEO_P1_S3": "MEO_P1_S3.csv",
+    "MEO_P1_S4": "MEO_P1_S4.csv",
+    "MEO_P1_S5": "MEO_P1_S5.csv",
+    "MEO_P1_S6": "MEO_P1_S6.csv",
+    "MEO_P1_S7": "MEO_P1_S7.csv",
+    "MEO_P1_S8": "MEO_P1_S8.csv",
+    "MEO_P2_S1": "MEO_P2_S1.csv",
+    "MEO_P2_S2": "MEO_P2_S2.csv",
+    "MEO_P2_S3": "MEO_P2_S3.csv",
+    "MEO_P2_S4": "MEO_P2_S4.csv",
+    "MEO_P2_S5": "MEO_P2_S5.csv",
+    "MEO_P2_S6": "MEO_P2_S6.csv",
+    "MEO_P2_S7": "MEO_P2_S7.csv",
+    "MEO_P2_S8": "MEO_P2_S8.csv",
+    "MEO_P3_S1": "MEO_P3_S1.csv",
+    "MEO_P3_S2": "MEO_P3_S2.csv",
+    "MEO_P3_S3": "MEO_P3_S3.csv",
+    "MEO_P3_S4": "MEO_P3_S4.csv",
+    "MEO_P3_S5": "MEO_P3_S5.csv",
+    "MEO_P3_S6": "MEO_P3_S6.csv",
+    "MEO_P3_S7": "MEO_P3_S7.csv",
+    "MEO_P3_S8": "MEO_P3_S8.csv"
+  }
+}

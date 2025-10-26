@@ -1,0 +1,8 @@
+metric,value
+Ground Processing p50 [ms],293.18
+Ground Processing p90 [ms],294.71
+Ground Processing mean [ms],293.49
+Onboard Processing p50 [ms],258.43
+Onboard Processing p90 [ms],259.54
+Onboard Processing mean [ms],258.40
+Total Samples,637

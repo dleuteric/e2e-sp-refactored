@@ -1,0 +1,21 @@
+name: coverage_metrics
+title: Coverage Analysis
+
+description: |
+  Satellite coverage statistics including percentage and gap analysis.
+
+kpi_mapping:
+  primary_metric: "Coverage [%]"
+  higher_is_better: true
+  thresholds:
+    excellent: 95
+    good: 80
+    marginal: 60
+
+available_metrics:
+  - name: "Coverage [%]"
+    description: "Percentage of mission time with satellite coverage"
+
+plots:
+  - file: coverage_plot.png
+    caption: "Coverage timeline"

@@ -1,0 +1,21 @@
+name: tracking_performance
+title: Tracking Performance Analysis
+
+description: |
+  Tracking accuracy metrics including RMSE and error statistics.
+
+kpi_mapping:
+  primary_metric: "Tracking RMSE [km]"
+  higher_is_better: false
+  thresholds:
+    excellent: 0.5
+    good: 1.0
+    marginal: 2.0
+
+available_metrics:
+  - name: "Tracking RMSE [km]"
+    description: "Root mean square error of tracking estimates"
+
+plots:
+  - file: tracking_plot.png
+    caption: "Tracking error evolution"

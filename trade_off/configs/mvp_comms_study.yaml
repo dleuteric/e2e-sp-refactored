@@ -1,0 +1,71 @@
+study:
+  name: "MVP Comms Latency Study"
+  description: "Minimal MCDA test comparing 3 architectures on communications latency"
+  target: "HGV_330"
+
+architectures:
+  - id: arch_A_baseline
+    run_id: dummy
+    label: "Baseline Architecture"
+    description: "Original configuration"
+
+  - id: arch_B_worse
+    run_id: dummy
+    label: "Degraded Architecture"
+    description: "Higher latency configuration"
+
+  - id: arch_C_better
+    run_id: dummy
+    label: "Enhanced Architecture"
+    description: "Lower latency configuration"
+
+# Multi-criteria analysis (weights sum to 1.0)
+criteria:
+  responsiveness:
+    weight: 0.25
+    plugin: comms_latency
+    metric: "Ground Processing p50 [ms]"
+    higher_is_better: false
+    thresholds:
+      excellent: 100
+      good: 1000
+      marginal: 10000
+
+  tracking_performance:
+    weight: 0.35
+    plugin: tracking_performance
+    metric: "Tracking RMSE [km]"
+    higher_is_better: false
+    thresholds:
+      excellent: 0.5
+      good: 1.0
+      marginal: 2.0
+
+  coverage:
+    weight: 0.25
+    plugin: coverage_metrics
+    metric: "Coverage [%]"
+    higher_is_better: true
+    thresholds:
+      excellent: 95
+      good: 80
+      marginal: 60
+
+  affordability:
+    weight: 0.15
+    from_cost_model: true
+    higher_is_better: true
+    cost_data:
+      arch_A_baseline: 500
+      arch_B_worse: 350
+      arch_C_better: 750
+    thresholds:
+      excellent: 400
+      good: 600
+      marginal: 800
+
+# Tier classification based on normalized score
+tiers:
+  high: 0.7     # Normalized score >= 0.7
+  mid: 0.5      # 0.5 <= score < 0.7
+  low: 0.0      # score < 0.5

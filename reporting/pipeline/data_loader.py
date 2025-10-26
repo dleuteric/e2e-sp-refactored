@@ -13,7 +13,7 @@ from __future__ import annotations
 
 import logging
 import sys
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Optional
 
@@ -67,9 +67,7 @@ class DataBundle:
     mgm: pd.DataFrame
     comms_ground: pd.DataFrame
     comms_onboard: pd.DataFrame
-    snr: pd.DataFrame
-    pd: pd.DataFrame
-    far: pd.DataFrame
+    plugin_data: dict = field(default_factory=dict)
 
     def __post_init__(self):
         """Log data sizes."""
@@ -284,3 +282,13 @@ def summarize_data_bundle(data: DataBundle) -> str:
         f"  Comms Onboard: {len(data.comms_onboard):6d} samples  {'✓' if not data.comms_onboard.empty else '✗'}",
     ]
     return "\n".join(lines)
+
+
+def _load_plugin_data(plugin_name: str, run_id: str, target_id: str) -> pd.DataFrame:
+    """Load plugin metrics CSV."""
+    plugin_path = REPO / "reporting" / "plugins" / plugin_name / run_id / target_id / "analyses"
+    csv_files = list(plugin_path.glob("*.csv"))
+
+    if csv_files:
+        return pd.read_csv(csv_files[0])
+    return pd.DataFrame()
