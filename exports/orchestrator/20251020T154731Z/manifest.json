@@ -1,0 +1,537 @@
+{
+  "run_id": "20251020T154731Z",
+  "generated_at_utc": "2025-10-20T15:48:02.004485Z",
+  "repo_root": "/Users/daniele_leuteri/PycharmProjects/tracking_perf_nsat/e2e-sp-refactored",
+  "counts": {
+    "satellites": 24,
+    "targets": 1,
+    "gpm_files": 1,
+    "kf_tracks": 1
+  },
+  "targets": [
+    "HGV_330"
+  ],
+  "time_windows": {
+    "truth": {
+      "t0": "2025-01-01T00:00:00Z",
+      "tN": "2025-01-01T00:10:36Z"
+    },
+    "gpm": {
+      "t0": "2025-01-01T00:00:00Z",
+      "tN": "2025-01-01T00:10:36Z"
+    },
+    "kf": null
+  },
+  "space_segment": {
+    "layers": [
+      {
+        "name": "VLEO_FC",
+        "enabled": false,
+        "type": "walker",
+        "num_planes": 30,
+        "sats_per_plane": 20,
+        "altitude_km": 250,
+        "inclination_deg": 60.0,
+        "eccentricity": 0.001,
+        "arg_perigee_deg": 0.0,
+        "raan_spacing": "uniform",
+        "phase_offset_deg": null,
+        "n_sats": 600
+      },
+      {
+        "name": "LEO_FC",
+        "enabled": false,
+        "type": "walker",
+        "num_planes": 8,
+        "sats_per_plane": 10,
+        "altitude_km": 1000,
+        "inclination_deg": 60.0,
+        "eccentricity": 0.001,
+        "arg_perigee_deg": 0.0,
+        "raan_spacing": "uniform",
+        "phase_offset_deg": null,
+        "n_sats": 80
+      },
+      {
+        "name": "LEO_AT",
+        "enabled": false,
+        "type": "walker",
+        "num_planes": 6,
+        "sats_per_plane": 10,
+        "altitude_km": 800,
+        "inclination_deg": 60.0,
+        "eccentricity": 0.001,
+        "arg_perigee_deg": 0.0,
+        "raan_spacing": "uniform",
+        "phase_offset_deg": null,
+        "n_sats": 60
+      },
+      {
+        "name": "MEO_EW",
+        "enabled": false,
+        "type": "walker",
+        "num_planes": 5,
+        "sats_per_plane": 3,
+        "altitude_km": 8000,
+        "inclination_deg": 60.0,
+        "eccentricity": 0.001,
+        "arg_perigee_deg": 0.0,
+        "raan_spacing": "uniform",
+        "phase_offset_deg": null,
+        "n_sats": 15
+      },
+      {
+        "name": "MEO_AT",
+        "enabled": true,
+        "type": "walker",
+        "num_planes": 3,
+        "sats_per_plane": 8,
+        "altitude_km": 23222,
+        "inclination_deg": 56.0,
+        "eccentricity": 0.001,
+        "arg_perigee_deg": 0.0,
+        "raan_spacing": "uniform",
+        "phase_offset_deg": null,
+        "n_sats": 24
+      },
+      {
+        "name": "GEO_EW",
+        "enabled": false,
+        "type": "walker",
+        "num_planes": 1,
+        "sats_per_plane": 3,
+        "altitude_km": 35786,
+        "inclination_deg": 0.0,
+        "eccentricity": 0.0,
+        "arg_perigee_deg": -75.0,
+        "raan_spacing": 75,
+        "phase_offset_deg": null,
+        "n_sats": 3
+      },
+      {
+        "name": "GEO_AT",
+        "enabled": false,
+        "type": "walker",
+        "num_planes": 1,
+        "sats_per_plane": 6,
+        "altitude_km": 35786,
+        "inclination_deg": 0.0,
+        "eccentricity": 0.0,
+        "arg_perigee_deg": 10.0,
+        "raan_spacing": "uniform",
+        "phase_offset_deg": null,
+        "n_sats": 6
+      },
+      {
+        "name": "HEO_AT",
+        "enabled": false,
+        "type": "walker",
+        "num_planes": 2,
+        "sats_per_plane": 4,
+        "altitude_km": 20184,
+        "inclination_deg": 63.4,
+        "eccentricity": 0.74,
+        "arg_perigee_deg": 270.0,
+        "raan_spacing": "uniform",
+        "phase_offset_deg": null,
+        "n_sats": 8
+      }
+    ],
+    "propagation": {
+      "method": "RK4",
+      "include_J2": false,
+      "timestep_sec": 1.0,
+      "duration_min": 20
+    },
+    "output": {
+      "coordinate_frame": "ECEF",
+      "save_ephemeris": true,
+      "ephemeris_dir": "exports/ephemeris/",
+      "file_format": "csv"
+    }
+  },
+  "active_layer": {
+    "name": "MEO_AT",
+    "num_planes": 3,
+    "sats_per_plane": 8,
+    "altitude_km": 23222.0,
+    "inclination_deg": 56.0,
+    "label_tag": "MEO_P3_S8_ALT23222_INC56",
+    "plot_title": "MEO AT \u2014 3 Planes, 8 Sat per plane, Alt. 23222 km, Incl. 56 deg"
+  },
+  "paths": {
+    "hub": "/Users/daniele_leuteri/PycharmProjects/tracking_perf_nsat/e2e-sp-refactored/exports/orchestrator/20251020T154731Z",
+    "ephem": "/Users/daniele_leuteri/PycharmProjects/tracking_perf_nsat/e2e-sp-refactored/exports/orchestrator/20251020T154731Z/ephem",
+    "aligned_sat": "/Users/daniele_leuteri/PycharmProjects/tracking_perf_nsat/e2e-sp-refactored/exports/orchestrator/20251020T154731Z/aligned_sat",
+    "aligned_tgt": "/Users/daniele_leuteri/PycharmProjects/tracking_perf_nsat/e2e-sp-refactored/exports/orchestrator/20251020T154731Z/aligned_tgt",
+    "mgm": "/Users/daniele_leuteri/PycharmProjects/tracking_perf_nsat/e2e-sp-refactored/exports/orchestrator/20251020T154731Z/mgm",
+    "gpm": "/Users/daniele_leuteri/PycharmProjects/tracking_perf_nsat/e2e-sp-refactored/exports/orchestrator/20251020T154731Z/gpm",
+    "tracks": "/Users/daniele_leuteri/PycharmProjects/tracking_perf_nsat/e2e-sp-refactored/exports/orchestrator/20251020T154731Z/tracks",
+    "metrics": "/Users/daniele_leuteri/PycharmProjects/tracking_perf_nsat/e2e-sp-refactored/exports/orchestrator/20251020T154731Z/metrics",
+    "plots": "/Users/daniele_leuteri/PycharmProjects/tracking_perf_nsat/e2e-sp-refactored/exports/orchestrator/20251020T154731Z/plots",
+    "space_segment_manifest_src": "/Users/daniele_leuteri/PycharmProjects/tracking_perf_nsat/e2e-sp-refactored/flightdynamics/exports/ephemeris/20251020T154731Z"
+  },
+  "space_segment_manifest": null,
+  "config": {
+    "project": {
+      "root": ".",
+      "exports_root": "exports"
+    },
+    "paths": {
+      "ephemeris": {
+        "raw": "exports/ephemeris",
+        "aligned_satellites": "exports/aligned_ephems/satellite_ephems",
+        "aligned_targets": "exports/aligned_ephems/targets_ephems"
+      },
+      "geometry": {
+        "los": "exports/geometry/los",
+        "gpm": "exports/gpm"
+      },
+      "tracking": {
+        "tracks": "exports/tracks",
+        "performance": "exports/tracking_performance"
+      },
+      "comms": {
+        "data_age": "exports/comms/data_age",
+        "provenance": "exports/comms/provenance",
+        "onboard": "exports/comms/onboard_processing",
+        "network": "exports/comms/network"
+      },
+      "orchestrator": {
+        "base": "exports/orchestrator",
+        "manifests": "exports/orchestrator/manifests"
+      },
+      "reports": {
+        "base": "exports/reports",
+        "figures": "exports/reports/figures",
+        "html": "exports/reports/html",
+        "pdf": "exports/reports/pdf"
+      },
+      "target_exports": "exports/target_exports/OUTPUT_CSV"
+    },
+    "patterns": {
+      "satellite_ephemeris": "*.csv",
+      "target_ephemeris": "HGV_*.csv",
+      "los_csv": "LOS_{sat_id}_{target_id}.csv",
+      "gpm_csv": "GPM_{target_id}_{sat_a}_{sat_b}.csv",
+      "track_csv": "{target_id}_track_{backend}.csv",
+      "manifest": "manifest.json"
+    },
+    "runtime": {
+      "run_id_format": "%Y%m%dT%H%M%SZ",
+      "run_id_env_var": "ORCH_RUN_ID",
+      "auto_timestamp": true,
+      "preserve_runs": true
+    },
+    "flightdynamics": {
+      "earth": {
+        "mu": 398600.4418,
+        "J2": 0.00108262668,
+        "R_E": 6378.137,
+        "omega_E": 7.2921159e-05
+      },
+      "space_segment": {
+        "layers": [
+          {
+            "name": "VLEO_FC",
+            "enabled": false,
+            "type": "walker",
+            "num_planes": 30,
+            "sats_per_plane": 20,
+            "walker_factor": 0,
+            "altitude_km": 250,
+            "inclination_deg": 60.0,
+            "eccentricity": 0.001,
+            "arg_perigee_deg": 0.0,
+            "raan_spacing": "uniform"
+          },
+          {
+            "name": "LEO_FC",
+            "enabled": false,
+            "type": "walker",
+            "num_planes": 8,
+            "sats_per_plane": 10,
+            "walker_factor": 0,
+            "altitude_km": 1000,
+            "inclination_deg": 60.0,
+            "eccentricity": 0.001,
+            "arg_perigee_deg": 0.0,
+            "raan_spacing": "uniform"
+          },
+          {
+            "name": "LEO_AT",
+            "enabled": false,
+            "type": "walker",
+            "num_planes": 6,
+            "sats_per_plane": 10,
+            "walker_factor": 0,
+            "altitude_km": 800,
+            "inclination_deg": 60.0,
+            "eccentricity": 0.001,
+            "arg_perigee_deg": 0.0,
+            "raan_spacing": "uniform"
+          },
+          {
+            "name": "MEO_EW",
+            "enabled": false,
+            "type": "walker",
+            "num_planes": 5,
+            "sats_per_plane": 3,
+            "walker_factor": 0,
+            "altitude_km": 8000,
+            "inclination_deg": 60.0,
+            "eccentricity": 0.001,
+            "arg_perigee_deg": 0.0,
+            "raan_spacing": "uniform"
+          },
+          {
+            "name": "MEO_AT",
+            "enabled": true,
+            "type": "walker",
+            "num_planes": 3,
+            "sats_per_plane": 8,
+            "walker_factor": 1,
+            "altitude_km": 23222,
+            "inclination_deg": 56.0,
+            "eccentricity": 0.001,
+            "arg_perigee_deg": 0.0,
+            "raan_spacing": "uniform"
+          },
+          {
+            "name": "GEO_EW",
+            "enabled": false,
+            "type": "walker",
+            "num_planes": 1,
+            "sats_per_plane": 3,
+            "walker_factor": 0,
+            "altitude_km": 35786,
+            "inclination_deg": 0.0,
+            "eccentricity": 0.0,
+            "arg_perigee_deg": -75.0,
+            "raan_spacing": 75
+          },
+          {
+            "name": "GEO_AT",
+            "enabled": false,
+            "type": "walker",
+            "num_planes": 1,
+            "sats_per_plane": 6,
+            "walker_factor": 0,
+            "altitude_km": 35786,
+            "inclination_deg": 0.0,
+            "eccentricity": 0.0,
+            "arg_perigee_deg": 10.0,
+            "raan_spacing": "uniform"
+          },
+          {
+            "name": "HEO_AT",
+            "enabled": false,
+            "type": "walker",
+            "num_planes": 2,
+            "sats_per_plane": 4,
+            "walker_factor": 0,
+            "altitude_km": 20184,
+            "inclination_deg": 63.4,
+            "eccentricity": 0.74,
+            "arg_perigee_deg": 270.0,
+            "raan_spacing": "uniform"
+          }
+        ],
+        "propagation": {
+          "method": "RK4",
+          "include_J2": false,
+          "timestep_sec": 1.0,
+          "duration_min": 20
+        },
+        "output": {
+          "coordinate_frame": "ECEF",
+          "save_ephemeris": true,
+          "ephemeris_dir": "exports/ephemeris/",
+          "file_format": "csv"
+        }
+      }
+    },
+    "geometry": {
+      "mission": {
+        "sat_dir": "flightdynamics/exports/ephemeris",
+        "sat_aligned_base": "exports/aligned_ephems/satellite_ephems/",
+        "tgt_aligned_base": "exports/aligned_ephems/targets_ephems",
+        "los_output_dir": "exports/geometry/los",
+        "sat_pattern": "*.csv",
+        "tgt_pattern": "HGV_*.csv",
+        "join_mode": "nearest",
+        "nearest_tol_s": 0.2,
+        "write_access": true,
+        "earth_radius_m": 6378137.0
+      },
+      "gpm": {
+        "triangulator": "nsats",
+        "mode_all_pairs": true,
+        "sat_a": null,
+        "sat_b": null,
+        "min_overlap_epochs": 3,
+        "save_empty_pairs": false,
+        "name_with_pair": true,
+        "sigma_urad": 30.0,
+        "beta_min_deg": 1.0,
+        "big_cov_km2": "1.0e6",
+        "reg_eps": 1e-12,
+        "seed": null
+      }
+    },
+    "estimation": {
+      "run_filter": {
+        "max_epochs": null,
+        "jerk_psd": 0.0001,
+        "p0_scale": 1.0,
+        "log_level": "INFO",
+        "backend": "filterpy",
+        "track_update_rate_hz": null,
+        "adaptive": {
+          "window_size": 21,
+          "huber_k": 2.5,
+          "min_weight": 1e-06
+        },
+        "smooth_ca": {
+          "chi2_gate_3dof": 7.815,
+          "force_update": false,
+          "min_meas_std_m": 75.0,
+          "min_p0_pos_std_m": 200.0,
+          "gate_reject_pos_factor": 4.0,
+          "gate_rescue_factor": 9.0,
+          "rescue_force_update": true,
+          "max_abs_accel_kmps2": 0.1,
+          "P0_diag": [
+            0.001,
+            0.001,
+            0.001,
+            0.5,
+            0.5,
+            0.5,
+            5.0,
+            5.0,
+            5.0
+          ],
+          "inflate": {
+            "bad_geom_factor": 3.0,
+            "condA_thresh": "1.0e8",
+            "condA_factor": 2.0,
+            "betamin_thresh_deg": 10.0,
+            "betamin_factor": 2.0
+          }
+        }
+      },
+      "kf": {
+        "chi2_gate_3dof": 7.815,
+        "force_update": false,
+        "P0_diag": [
+          0.001,
+          0.001,
+          0.001,
+          1.0,
+          1.0,
+          1.0,
+          10.0,
+          10.0,
+          10.0
+        ],
+        "min_meas_std_m": 100.0,
+        "min_p0_pos_std_m": 100.0,
+        "gate_reject_pos_factor": 9.0,
+        "inflate": {
+          "bad_geom_factor": 3.0,
+          "condA_thresh": "1.0e8",
+          "condA_factor": 2.0,
+          "betamin_thresh_deg": 10.0,
+          "betamin_factor": 2.0
+        }
+      },
+      "filterpy": {
+        "estimator": "kalman",
+        "ukf": {
+          "alpha": 0.3,
+          "beta": 2.0,
+          "kappa": 0.0
+        },
+        "imm": {
+          "models": [
+            {
+              "name": "nominal",
+              "jerk_psd_scale": 1.0
+            },
+            {
+              "name": "maneuver",
+              "jerk_psd_scale": 10.0
+            }
+          ],
+          "transition": [
+            [
+              0.95,
+              0.05
+            ],
+            [
+              0.05,
+              0.95
+            ]
+          ],
+          "mu0": [
+            0.9,
+            0.1
+          ]
+        }
+      }
+    },
+    "filter": {
+      "name": "KF_CV_9state",
+      "state_dimension": 9,
+      "measurement_dof": 3
+    },
+    "comms": {
+      "gs1": [
+        "A",
+        42.2,
+        6.1,
+        0
+      ],
+      "gs2": [
+        "B",
+        52.2,
+        12.1,
+        0
+      ],
+      "gs7": [
+        "G",
+        40.2,
+        -4.5,
+        0
+      ]
+    },
+    "policies": {
+      "gnd-sat": {
+        "min_elevation_deg": 5.0,
+        "max_range_m": "2.0e8",
+        "setup_delay_s": 0.0
+      },
+      "sat-sat": {
+        "max_range_m": "8.0e7",
+        "setup_delay_s": 0.0
+      }
+    },
+    "reporting": {
+      "report_generation": {
+        "title_prefix": "",
+        "filename_suffix": "",
+        "theme": "light",
+        "colorscale": "Viridis",
+        "annotation": ""
+      }
+    },
+    "logging": {
+      "level": "INFO"
+    }
+  },
+  "config_meta": {
+    "path": "/Users/daniele_leuteri/PycharmProjects/tracking_perf_nsat/e2e-sp-refactored/config/defaults.yaml",
+    "overrides": {}
+  }
+}

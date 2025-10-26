@@ -1,0 +1,63 @@
+{
+  "study_name": "MVP Comms Latency Study",
+  "timestamp": "2025-10-26T17:19:04.024110",
+  "rankings": [
+    {
+      "rank": 1,
+      "architecture_id": "arch_C_better",
+      "architecture_label": "Enhanced Architecture",
+      "score": 1.0,
+      "tier": "High",
+      "criteria_scores": {
+        "responsiveness": 0.7,
+        "tracking_performance": 1.0,
+        "coverage": 1.0,
+        "affordability": 1.0
+      },
+      "raw_values": {
+        "responsiveness": 180,
+        "tracking_performance": 0.45,
+        "coverage": 100.0,
+        "affordability": 750
+      }
+    },
+    {
+      "rank": 2,
+      "architecture_id": "arch_A_baseline",
+      "architecture_label": "Baseline Architecture",
+      "score": 0.6602184296974404,
+      "tier": "Mid",
+      "criteria_scores": {
+        "responsiveness": 0.7,
+        "tracking_performance": 0.7,
+        "coverage": 1.0,
+        "affordability": 1.0
+      },
+      "raw_values": {
+        "responsiveness": 293.18,
+        "tracking_performance": 0.72,
+        "coverage": 100.0,
+        "affordability": 500
+      }
+    },
+    {
+      "rank": 3,
+      "architecture_id": "arch_B_worse",
+      "architecture_label": "Degraded Architecture",
+      "score": 0.0,
+      "tier": "Low",
+      "criteria_scores": {
+        "responsiveness": 0.7,
+        "tracking_performance": 0.4,
+        "coverage": 0.7,
+        "affordability": 0.0
+      },
+      "raw_values": {
+        "responsiveness": 450,
+        "tracking_performance": 1.25,
+        "coverage": 85.0,
+        "affordability": 350
+      }
+    }
+  ]
+}

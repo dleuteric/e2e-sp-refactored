@@ -17,6 +17,7 @@ Usage:
 from __future__ import annotations
 import numpy as np
 import logging
+import shutil
 import sys
 from pathlib import Path
 from types import SimpleNamespace
@@ -34,7 +35,7 @@ from reporting.core.pdf_styles import (
 )
 from reporting.core.pdf_section_registry import SECTION_REGISTRY, RenderContext
 from reporting.core.pdf_kpi_config import extract_all_kpis
-from reporting.pipeline.data_loader import load_all_data
+from reporting.pipeline.data_loader import load_all_data, _load_plugin_data
 from reporting.pipeline.metrics_computer import compute_all_metrics
 from reporting.rendering import export_all_report_figures
 from reporting.docx_companion import generate_docx_companion
@@ -204,12 +205,18 @@ class PDFReportBuilder:
             include_comms=True
         )
 
+        # Load plugin data
+        self.data.plugin_data['comms_latency'] = _load_plugin_data(
+            'comms_latency', self.run_id, self.target_id
+        )
+
         LOGGER.info("  Truth:         %6d samples", len(self.data.truth))
         LOGGER.info("  KF Track:      %6d samples", len(self.data.kf))
         LOGGER.info("  GPM:           %6d samples", len(self.data.gpm))
         LOGGER.info("  MGM:           %6d samples", len(self.data.mgm))
         LOGGER.info("  Comms Ground:  %6d samples", len(self.data.comms_ground))
         LOGGER.info("  Comms Onboard: %6d samples", len(self.data.comms_onboard))
+        LOGGER.info("  Plugin Data:   comms_latency (%d metrics)", len(self.data.plugin_data['comms_latency']))
 
     def _compute_metrics(self):
         """Compute all metrics from loaded data."""
@@ -252,6 +259,11 @@ class PDFReportBuilder:
         # Create chart directory
         self.chart_dir = self.output_path.parent / f"{self.target_id}_charts"
         self.chart_dir.mkdir(exist_ok=True)
+
+        # Copy all plugin plots to chart_dir
+        plugin_viz_dir = REPO / "reporting" / "plugins" / "comms_latency" / self.run_id / self.target_id / "visualizations"
+        for plot_file in plugin_viz_dir.glob("*.png"):
+            shutil.copy(plot_file, self.chart_dir / plot_file.name)
 
         # Use ChartExporter
         exporter = ChartExporter(

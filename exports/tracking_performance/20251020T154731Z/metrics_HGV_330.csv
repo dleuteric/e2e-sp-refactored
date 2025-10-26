@@ -1,0 +1,2 @@
+run_tracks,run_gpm,run_truth,target,kf_rmse_x_km,kf_rmse_y_km,kf_rmse_z_km,kf_N_match,gpm_best_file,gpm_rmse_x_km,gpm_rmse_y_km,gpm_rmse_z_km,gpm_N_match
+20251020T154731Z,20251020T154731Z,20251020T154731Z,HGV_330,0.4194106420864127,0.26112962023344444,0.5301875990916417,637,triangulated_nsats_HGV_330_20251020T154733Z.csv,0.46869455609280464,0.32921150649956454,0.5675537809909791,637

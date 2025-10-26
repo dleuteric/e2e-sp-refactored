@@ -1,0 +1,29 @@
+{
+  "run_id": "20251025T211158Z",
+  "target": "HGV_330",
+  "age_mode": "both",
+  "constellation": "CONST_UNK",
+  "params": {
+    "sample_every": 1,
+    "tol_los_s": 4.5,
+    "tol_asof_s": 0.2,
+    "tri_proc_ms": 15.0,
+    "filter_proc_ms": 20.0,
+    "k_min": 2,
+    "proc_ms_space": 15.0,
+    "leader_policy": "nearest_gs",
+    "use_photon_time_ground": true,
+    "photon_combine_ground": "max",
+    "use_photon_time_obp": true,
+    "photon_combine_obp": "max"
+  },
+  "paths": {
+    "track_csv": "/Users/daniele_leuteri/PycharmProjects/tracking_perf_nsat/e2e-sp-refactored/exports/tracks/20251025T211158Z/HGV_330_track_ecef_forward.csv",
+    "ground_age_csv": "/Users/daniele_leuteri/PycharmProjects/tracking_perf_nsat/e2e-sp-refactored/exports/tracks/20251025T211158Z/HGV_330_track_ecef_forward__with_age.csv",
+    "onboard_age_csv": "/Users/daniele_leuteri/PycharmProjects/tracking_perf_nsat/e2e-sp-refactored/exports/tracks/20251025T211158Z/HGV_330_track_ecef_forward__onboard_age.csv",
+    "aged_track_ground": "/Users/daniele_leuteri/PycharmProjects/tracking_perf_nsat/e2e-sp-refactored/exports/tracks/20251025T211158Z/HGV_330_track_ecef_aged_ground.csv",
+    "aged_track_onboard": "/Users/daniele_leuteri/PycharmProjects/tracking_perf_nsat/e2e-sp-refactored/exports/tracks/20251025T211158Z/HGV_330_track_ecef_aged_onboard.csv",
+    "data_age_dir": "/Users/daniele_leuteri/PycharmProjects/tracking_perf_nsat/e2e-sp-refactored/exports/data_age/20251025T211158Z",
+    "per_sat_dir": "/Users/daniele_leuteri/PycharmProjects/tracking_perf_nsat/e2e-sp-refactored/exports/data_age/20251025T211158Z/per_sat"
+  }
+}
