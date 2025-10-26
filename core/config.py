@@ -296,4 +296,84 @@ def get_config_overrides() -> dict[str, Any]:
     return deepcopy(_last_overrides)
 
 
+# core/config.py - ADD THESE FUNCTIONS
+
+from pathlib import Path
+from typing import Optional
+
+
+def get_project_root() -> Path:
+    """Return absolute project root."""
+    cfg = get_config()
+    root = Path(cfg.get("project", {}).get("root", "."))
+    if not root.is_absolute():
+        root = Path(__file__).resolve().parents[1] / root
+    return root.resolve()
+
+
+def get_exports_root() -> Path:
+    """Return absolute exports root."""
+    cfg = get_config()
+    exports = cfg.get("project", {}).get("exports_root", "exports")
+    root = get_project_root()
+    return (root / exports).resolve()
+
+
+def get_path(path_key: str, run_id: Optional[str] = None) -> Path:
+    """
+    Resolve a path from config by dotted key.
+
+    Examples:
+        get_path("ephemeris.raw")
+        get_path("geometry.los", run_id="20251018T120000Z")
+
+    If run_id is provided and path doesn't contain {run_id},
+    it will be appended automatically.
+    """
+    cfg = get_config()
+    paths = cfg.get("paths", {})
+
+    # Navigate nested dict
+    keys = path_key.split(".")
+    current = paths
+    for key in keys:
+        if not isinstance(current, dict):
+            raise KeyError(f"Path '{path_key}' not found in config")
+        current = current.get(key)
+        if current is None:
+            raise KeyError(f"Path '{path_key}' not found in config")
+
+    # Resolve to absolute
+    path_str = str(current)
+    if "{run_id}" in path_str:
+        if run_id is None:
+            raise ValueError(f"Path '{path_key}' requires run_id but none provided")
+        path_str = path_str.format(run_id=run_id)
+
+    path = Path(path_str)
+    if not path.is_absolute():
+        path = get_exports_root() / path
+
+    # Auto-append run_id if requested but not in template
+    if run_id and "{run_id}" not in str(current):
+        path = path / run_id
+
+    return path.resolve()
+
+
+def get_pattern(pattern_key: str, **kwargs) -> str:
+    """
+    Get filename pattern from config with optional formatting.
+
+    Example:
+        get_pattern("los_csv", sat_id="SAT001", target_id="HGV_01")
+        # Returns: "LOS_SAT001_HGV_01.csv"
+    """
+    cfg = get_config()
+    patterns = cfg.get("patterns", {})
+    pattern = patterns.get(pattern_key)
+    if pattern is None:
+        raise KeyError(f"Pattern '{pattern_key}' not found in config")
+    return pattern.format(**kwargs) if kwargs else pattern
+
 __all__ = ["get_config", "get_config_source", "get_config_overrides"]
