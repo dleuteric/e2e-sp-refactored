@@ -1,5 +1,64 @@
 # Default configuration for the tracking_performance repository.
 # Each key is documented inline; overrides are possible via env/CLI.
+# === PROJECT STRUCTURE ===
+project:
+  root: .  # Will be resolved to absolute path
+  exports_root: exports
+
+paths:
+  # Flight dynamics
+  ephemeris:
+    raw: exports/ephemeris
+    aligned_satellites: exports/aligned_ephems/satellite_ephems
+    aligned_targets: exports/aligned_ephems/targets_ephems
+
+  # Geometry
+  geometry:
+    los: exports/geometry/los
+    gpm: exports/gpm
+
+  # Tracking
+  tracking:
+    tracks: exports/tracks
+    performance: exports/tracking_performance
+
+  # Communications
+  comms:
+    data_age: exports/comms/data_age
+    provenance: exports/comms/provenance
+    onboard: exports/comms/onboard_processing
+    network: exports/comms/network
+
+  # Orchestration
+  orchestrator:
+    base: exports/orchestrator
+    manifests: exports/orchestrator/manifests
+
+  # Reporting
+  reports:
+    base: exports/reports
+    figures: exports/reports/figures
+    html: exports/reports/html
+    pdf: exports/reports/pdf
+
+  # Target exports (legacy?)
+  target_exports: exports/target_exports/OUTPUT_CSV
+
+# === FILENAME PATTERNS ===
+patterns:
+  satellite_ephemeris: "*.csv"
+  target_ephemeris: "HGV_*.csv"
+  los_csv: "LOS_{sat_id}_{target_id}.csv"
+  gpm_csv: "GPM_{target_id}_{sat_a}_{sat_b}.csv"
+  track_csv: "{target_id}_track_{backend}.csv"
+  manifest: "manifest.json"
+
+# === RUN MANAGEMENT ===
+runtime:
+  run_id_format: "%Y%m%dT%H%M%SZ"  # ISO 8601 UTC
+  run_id_env_var: ORCH_RUN_ID
+  auto_timestamp: true
+  preserve_runs: true  # Keep old runs or clean
 
 flightdynamics:
   earth:
@@ -22,14 +81,14 @@ flightdynamics:
         raan_spacing: uniform
 
       - name: LEO_FC
-        enabled: false
+        enabled: true
         type: walker
         num_planes: 8
-        sats_per_plane: 10
+        sats_per_plane: 6
         walker_factor: 0
-        altitude_km: 1000
-        inclination_deg: 60.0
-        eccentricity: 0.001
+        altitude_km: 450
+        inclination_deg: 70.0
+        eccentricity: 0.5
         arg_perigee_deg: 0.0
         raan_spacing: uniform
 
@@ -58,12 +117,12 @@ flightdynamics:
         raan_spacing: uniform
 
       - name: MEO_AT
-        enabled: true
+        enabled: false
         type: walker
         num_planes: 3
         sats_per_plane: 8
         walker_factor: 1
-        altitude_km: 8000
+        altitude_km: 23222
         inclination_deg: 56.0
         eccentricity: 0.001
         arg_perigee_deg: 0.0

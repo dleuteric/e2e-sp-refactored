@@ -33,7 +33,7 @@ if str(REPO) not in sys.path:
     sys.path.insert(0, str(REPO))
 
 from core.config import get_config, get_config_source, get_config_overrides
-from reporting.report_generation import generate_report
+from reporting_old.report_generation import generate_report
 
 PYTHON = sys.executable
 

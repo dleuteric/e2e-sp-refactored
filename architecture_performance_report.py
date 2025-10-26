@@ -58,7 +58,7 @@ if str(REPO) not in sys.path:
 
 # Import existing report generation utilities
 try:
-    from reporting.report_generation import (
+    from reporting_old.report_generation import (
         _load_truth, _load_kf, _load_gpm, _load_mgm,
         _align_series, _safe_series, _mean, _median, _percentile, _rmse,
         _summarise_errors, _summarise_updates, _nis_nees_stats,

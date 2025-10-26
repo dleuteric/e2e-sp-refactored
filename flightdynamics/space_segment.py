@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
 Space Segment Module (Curtis-style RKF45)
-- Same public interface as before (class SpaceSegment, propagate())
 - Reads EARTH_PARAMS and SPACE_SEGMENT from config.py
+
 - Initializes Walker layers (with STK-like inter-plane phasing if present)
 - Propagates in ECI using explicit RKF45 (Runge–Kutta–Fehlberg 4(5))
   * Two-body (+ optional J2) accelerations

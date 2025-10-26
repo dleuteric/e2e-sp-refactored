@@ -1715,7 +1715,7 @@ def generate_report(run_id: str,
 
 
 def _build_settings(cfg: Mapping[str, Any]) -> ReportSettings:
-    reporting_cfg = ((cfg.get("reporting") or {}).get("report_generation") or {}) if isinstance(cfg, Mapping) else {}
+    reporting_cfg = ((cfg.get("reporting_old") or {}).get("report_generation") or {}) if isinstance(cfg, Mapping) else {}
     filter_cfg = cfg.get("filter") if isinstance(cfg, Mapping) else {}
     geometry_cfg = ((cfg.get("geometry") or {}).get("gpm") or {}) if isinstance(cfg, Mapping) else {}
     filter_label, track_rate = _describe_filter_backend(cfg)
