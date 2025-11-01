@@ -1,0 +1,64 @@
+@startuml mcda_architecture
+!define RECTANGLE class
+
+skinparam componentStyle rectangle
+skinparam backgroundColor #FEFEFE
+skinparam component {
+    BackgroundColor<<core>> LightBlue
+    BackgroundColor<<data>> LightGreen
+    BackgroundColor<<output>> LightCoral
+}
+
+package "Input Layer" {
+    [Config YAML] as config <<data>>
+    [Metrics CSVs] as metrics <<data>>
+}
+
+package "MCDA Core Engine" {
+    [Config Loader] as loader <<core>>
+    [Metrics Loader] as mloader <<core>>
+    [Normalization Engine] as norm <<core>>
+    [TOPSIS Algorithm] as topsis <<core>>
+    [Tier Classifier] as tier <<core>>
+}
+
+package "Output Layer" {
+    [Results JSON] as json <<output>>
+    [Visualization Engine] as viz <<output>>
+    [PDF Report] as pdf <<output>>
+}
+
+config --> loader : parse
+metrics --> mloader : scan & extract
+loader --> norm : architectures + criteria
+mloader --> norm : raw metric values
+norm --> topsis : decision matrix + weights
+topsis --> tier : TOPSIS scores
+tier --> json : rankings + tiers
+json --> viz : load results
+viz --> pdf : generate plots
+
+note right of config
+  **Config Structure:**
+  - architectures[]
+  - criteria{}
+  - weights{}
+  - tiers_thresholds{}
+end note
+
+note right of metrics
+  **Metrics Directory:**
+  valid/reports/<RUN_ID>/
+    <TARGET>_metrics/
+      *.csv
+end note
+
+note right of json
+  **Results Schema:**
+  - study metadata
+  - rankings[]
+  - raw_values{}
+  - normalized_scores{}
+end note
+
+@enduml

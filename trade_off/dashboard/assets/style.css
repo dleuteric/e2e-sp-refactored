@@ -1,0 +1,71 @@
+/* Custom CSS for ez-SMAD MCDA Dashboard */
+
+/* Table styling */
+.table {
+    border: 1px solid #ddd;
+}
+
+.table th {
+    background-color: #3498db;
+    color: white;
+    padding: 12px;
+    text-align: left;
+    font-weight: bold;
+}
+
+.table td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #f9f9f9;
+}
+
+.table-striped tbody tr:hover {
+    background-color: #e8f4f8;
+}
+
+/* Slider styling */
+.rc-slider-track {
+    background-color: #3498db !important;
+}
+
+.rc-slider-handle {
+    border-color: #3498db !important;
+}
+
+.rc-slider-handle:active {
+    border-color: #2980b9 !important;
+    box-shadow: 0 0 5px #2980b9 !important;
+}
+
+/* Tab styling */
+.tab {
+    font-weight: bold;
+}
+
+.tab--selected {
+    background-color: #3498db !important;
+    color: white !important;
+}
+
+/* Button hover effects */
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+/* Dropdown styling */
+.Select-control {
+    border-radius: 4px;
+    border: 1px solid #3498db;
+}
+
+/* Graph container */
+.js-plotly-plot {
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}

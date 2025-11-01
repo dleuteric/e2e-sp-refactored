@@ -1,0 +1,182 @@
+study:
+  name: "Architecture Trade-Offs"
+  description: "Comprehensive MCDA comparison of LEO/MEO/GEO/Hybrid configurations"
+  target: "HGV_330"
+
+architectures:
+  - id: arch_01
+    metrics_dir: valid/reports/20251020T154731Z/HGV_330_metrics
+    label: "A1 - 24 MEO @23222 km"
+    enabled: true
+
+  - id: arch_02
+    metrics_dir: valid/reports/20251025T211158Z/HGV_330_metrics
+    label: "A2 - 48 LEO @450 km"
+    enabled: false
+
+  - id: arch_03
+    metrics_dir: valid/reports/20251029T224607Z/HGV_330_metrics
+    label: "A3 - 3 GEO"
+    enabled: true
+
+  - id: arch_04
+    metrics_dir: valid/reports/20251031T111653Z/HGV_330_metrics
+    label: "A4 - 3 GEO + 24 LEO @1300 km"
+    enabled: false
+
+  - id: arch_05
+    metrics_dir: valid/reports/20251031T111906Z/HGV_330_metrics
+    label: "A5 - 3 GEO + 120 LEO @400 km"
+    enabled: false
+
+  - id: arch_06
+    metrics_dir: valid/reports/20251031T113159Z/HGV_330_metrics
+    label: "A6 - 8 GEO + 8 HEO"
+    enabled: true
+
+  - id: arch_07
+    metrics_dir: valid/reports/20251031T113514Z/HGV_330_metrics
+    label: "A7 - 6 GEO"
+    enabled: true
+
+  - id: arch_08
+    metrics_dir: valid/reports/20251031T113637Z/HGV_330_metrics
+    label: "A8 - 24 MEO @8000 km"
+    enabled: true
+
+  - id: arch_09
+    metrics_dir: valid/reports/20251031T113846Z/HGV_330_metrics
+    label: "A9 - 24 MEO @23222 km (degraded perf.)"
+    enabled: true
+
+  - id: arch_10
+    metrics_dir: valid/reports/20251031T114129Z/HGV_330_metrics
+    label: "A10 - 120 LEO @400 km"
+    enabled: true
+
+# ============================================================================
+# CRITERIA - Corrected gate thresholds
+# ============================================================================
+criteria:
+  tracking_accuracy:
+    enabled: true
+    is_gate_criterion: true
+    weight: 0.1
+    metric_key: "tracking_rmse_total"
+    unit: "km"
+    higher_is_better: false
+
+    # Gate thresholds (for tier classification)
+    tier_thresholds:
+      high_max: 0.15     # value ≤ 0.5 km → High tier
+      mid_max: 1.0      # 0.5 < value ≤ 2.0 km → Mid tier
+                        # value > 2.0 km → Low tier (implicit)
+
+    # TOPSIS scoring (continuous optimization within tier)
+    scoring_thresholds:
+      excellent: 0.2    # Maps to 1.0 in normalized matrix
+      good: 1.0         # Maps to 0.7
+      marginal: 5.0     # Maps to 0.4
+                        # worse → 0.0
+
+    description: "Overall position tracking error (ECEF frame)"
+
+  responsiveness:
+    enabled: true
+    is_gate_criterion: true
+    weight: 0.1
+    metric_key: "comms_ground_p50"
+    unit: "ms"
+    higher_is_better: false
+
+    # Gate thresholds (for tier classification)
+    tier_thresholds:
+      high_max: 150     # value ≤ 150 ms → High tier
+      mid_max: 500      # 150 < value ≤ 500 ms → Mid tier
+                        # value > 500 ms → Low tier (implicit)
+
+    # TOPSIS scoring (continuous optimization)
+    scoring_thresholds:
+      excellent: 100
+      good: 300
+      marginal: 1000
+
+    description: "Median ground processing latency"
+
+  coverage:
+    enabled: false
+    is_gate_criterion: false  # Not a gate, optimization only
+    weight: 0.10
+    metric_key: "coverage_percent"
+    unit: "%"
+    higher_is_better: true
+
+    scoring_thresholds:
+      excellent: 95.0
+      good: 80.0
+      marginal: 60.0
+
+    description: "Percentage of mission time with satellite coverage"
+
+  geometry_quality:
+    enabled: false
+    is_gate_criterion: false  # Not a gate, optimization only
+    weight: 0.05
+    metric_key: "gdop_p50"
+    unit: "-"
+    higher_is_better: false
+
+    scoring_thresholds:
+      excellent: 0.5
+      good: 1.5
+      marginal: 5.0
+
+    description: "Median geometric dilution of precision"
+
+  affordability:
+    enabled: true
+    is_gate_criterion: false  # Optimization only, not a hard gate
+    weight: 0.4              # Adjust weights accordingly
+    metric_key: "cost"        # Matches CSV header
+    unit: "B€"
+    higher_is_better: false   # Lower cost is better
+
+    scoring_thresholds:
+      excellent: 5.0    # ≤ 5B€ → score 1.0
+      good: 10.0        # ≤ 10B€ → score 0.7
+      marginal: 20.0    # ≤ 20B€ → score 0.4
+                        # > 20B€ → score 0.0
+
+    description: "Total system cost (development + launch + ops)"
+
+  resilience:
+    enabled: true
+    is_gate_criterion: false  # Optimization only, not a hard gate
+    weight: 0.4              # 10% weight
+    metric_key: "resilience"
+    unit: "-"
+    higher_is_better: true    # More sats = better resilience
+
+    scoring_thresholds:
+      excellent: 0.8   # ≥ 0.8 → score 1.0 (~60+ sats)
+      good: 0.6        # ≥ 0.6 → score 0.7 (24+ sats)
+      marginal: 0.4    # ≥ 0.4 → score 0.4 (15+ sats)
+                       # < 0.4 → score 0.0 (few sats)
+
+    description: "Constellation resilience to satellite loss"
+
+  technology_readiness:
+    enabled: true
+    is_gate_criterion: false  # Optimization only, not a hard gate
+    weight: 0.0              # 0% weight by default (can be adjusted)
+    metric_key: "trl"
+    unit: "TRL"
+    higher_is_better: true    # Higher TRL = more mature technology
+
+    scoring_thresholds:
+      excellent: 8   # TRL 8-9 → score 1.0 (qualified/proven systems)
+      good: 6        # TRL 7 → score 0.7 (prototype demonstrated)
+      marginal: 4    # TRL 5-6 → score 0.4 (component/system validation)
+                       # TRL < 5 → score 0.0 (early development)
+
+    description: "Technology Readiness Level (NASA scale 1-9)"
