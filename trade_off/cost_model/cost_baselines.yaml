@@ -1,0 +1,201 @@
+# Parametric Cost Model Baselines for ez-SMAD
+# All costs in FY2024 USD (Millions)
+# Based on public data from US early warning systems
+
+orbit_costs:
+  # LEO @400km - Based on SDA PWSA Tranche 1/2
+  # Source: Public contract announcements 2022-2024
+  # Raytheon $40M, L3Harris $50M, Northrop $44M, Tranche 2 avg $46M
+  leo_400km:
+    baseline_cost: 46.0  # Million USD
+    range_low: 40.0
+    range_high: 51.0
+    description: "SDA Proliferated Warfighter Space Architecture (PWSA) MW/MT satellites"
+    maturity: "high"  # Production contracts awarded
+    sources:
+      - "SDA Tranche 1 contracts (2022)"
+      - "SDA Tranche 2 contracts (2023-2024)"
+    notes: "Includes missile warning/tracking payload, bus, and basic ground integration"
+
+  # LEO @1300km - Slightly higher altitude, similar to PWSA
+  leo_1300km:
+    baseline_cost: 48.0  # Million USD (slightly higher for orbit maintenance)
+    range_low: 42.0
+    range_high: 54.0
+    description: "Extended LEO orbit, similar technology to PWSA"
+    maturity: "high"
+    notes: "Slightly higher cost due to increased orbit altitude requirements"
+
+  # MEO @8000km - Based on Resilient MW/MT Epoch 1
+  # Source: Millennium Space contract for Epoch 1
+  meo_8000km:
+    baseline_cost: 105.0  # Million USD (less mature than 23222km)
+    range_low: 80.0
+    range_high: 130.0
+    description: "Medium Earth Orbit tracking satellite (lower MEO)"
+    maturity: "medium"  # Early development phase
+    sources:
+      - "Resilient MW/MT Epoch 1 planning estimates"
+    notes: "Higher cost due to less flight heritage at this altitude"
+
+  # MEO @23222km (half-GEO) - Based on Resilient MW/MT Epoch 1/2
+  # Source: Millennium $386M for 6 sats, BAE $1.2B for 10 sats
+  meo_23222km:
+    baseline_cost: 90.0  # Million USD
+    range_low: 64.0
+    range_high: 120.0
+    description: "Medium Earth Orbit tracking satellite (high MEO/half-GEO)"
+    maturity: "medium-high"  # Contracts awarded
+    sources:
+      - "Millennium Space: $386M for 6 satellites = $64M per sat (Epoch 1)"
+      - "BAE Systems: $1.2B for 10 satellites = $120M per sat (Epoch 2)"
+      - "Total program: $3.8B for ~18 satellites"
+    notes: "Average of Epoch 1 and Epoch 2 costs, includes integration"
+
+  # GEO @35786km - Based on SBIRS/Next-Gen OPIR
+  # Source: SBIRS GEO 5+6 contract, Next-Gen OPIR estimates
+  geo_35786km:
+    baseline_cost: 1200.0  # Million USD (procurement only)
+    range_low: 900.0
+    range_high: 1500.0
+    description: "Geosynchronous Earth Orbit tracking satellite"
+    maturity: "high"  # Multiple generations flown
+    sources:
+      - "SBIRS GEO 5+6: $1.86B for 2 satellites = $930M per sat (2014 contract)"
+      - "Next-Gen OPIR GEO: $8.2B total program for 2-3 satellites"
+      - "Procurement-only estimate: $900M-1.5B per satellite"
+    notes: "Baseline excludes R&D and ground segment. Large, exquisite sensors with global coverage."
+
+  # HEO (Molniya/Tundra) - Based on SBIRS HEO/Next-Gen OPIR Polar
+  # Source: SBIRS HEO payload costs, Next-Gen OPIR Polar estimates
+  heo_molniya:
+    baseline_cost: 700.0  # Million USD (procurement only)
+    range_low: 500.0
+    range_high: 1000.0
+    description: "Highly Elliptical Orbit tracking satellite (Molniya/Tundra)"
+    maturity: "medium-high"  # SBIRS HEO flown, Next-Gen in development
+    sources:
+      - "SBIRS HEO payload: $238-283M per sensor (2005 estimates, inflation adjusted)"
+      - "Next-Gen OPIR Polar: $4.2B for 2 satellites = $2.1B per sat (full program)"
+      - "Procurement-only estimate: $500M-1B per satellite"
+    notes: "Includes specialized payload for high-latitude coverage and complex orbit"
+
+# Learning curve parameters
+# Based on aerospace industry standards and SDA proliferated production
+learning_curve:
+  description: "Cost reduction factors for volume production"
+  methodology: "Wright's learning curve model with aerospace industry parameters"
+
+  brackets:
+    - quantity_range: [1, 1]
+      factor: 1.00
+      description: "First article - full baseline cost"
+
+    - quantity_range: [2, 10]
+      factor: 0.95
+      description: "Initial production - 5% learning"
+      rationale: "Early production improvements, tooling optimization"
+
+    - quantity_range: [11, 50]
+      factor: 0.85
+      description: "Serial production - 15% learning"
+      rationale: "Established production line, supply chain optimization"
+
+    - quantity_range: [51, 100]
+      factor: 0.80
+      description: "Volume production - 20% learning"
+      rationale: "Mature production, economies of scale"
+
+    - quantity_range: [101, 9999]
+      factor: 0.75
+      description: "Proliferated production - 25% learning"
+      rationale: "Mass production like SDA Tranche 3+ vision, maximum efficiency"
+
+  notes:
+    - "Learning curve applies to recurring costs only (satellite hardware)"
+    - "Non-recurring costs (design, qualification) are separate"
+    - "Ground segment and launch costs use different scaling"
+
+# Non-recurring costs (NRE)
+non_recurring:
+  design_and_qualification:
+    description: "Satellite design, qualification testing, first article"
+    small_constellation: 250.0  # Million USD (< 10 satellites)
+    medium_constellation: 150.0  # Million USD (10-50 satellites)
+    large_constellation: 100.0   # Million USD (50+ satellites, amortized)
+    notes: "Amortized over constellation size; smaller for larger constellations"
+
+  ground_segment:
+    description: "Mission control, data processing, and ground stations"
+    base_cost: 500.0  # Million USD (minimum viable ground system)
+
+    scaling_factors:
+      small: 1.0   # < 10 satellites
+      medium: 1.3  # 10-50 satellites
+      large: 1.8   # 50-100 satellites
+      xlarge: 2.5  # 100+ satellites (full operations center)
+
+    notes:
+      - "Includes mission operations center, ground stations, data distribution"
+      - "Based on SBIRS/Next-Gen OPIR ground segment estimates scaled down"
+      - "Does not include extensive test range infrastructure"
+
+  integration_and_test:
+    description: "Satellite integration, environmental testing, ground checkout"
+    percentage_of_space_segment: 0.10  # 10% of total space segment cost
+    notes: "Standard industry factor for I&T activities"
+
+# Launch costs (for reference, not included in satellite cost)
+launch_costs:
+  note: "Launch costs are architecture-dependent and not included in satellite costs"
+  reference_only:
+    falcon_9: 67.0   # Million USD (rideshare rate)
+    vulcan_centaur: 110.0  # Million USD (dedicated)
+    atlas_v_551: 153.0  # Million USD (heavy lift)
+
+  assumptions:
+    - "LEO: Multiple satellites per launch (rideshare)"
+    - "MEO: 1-2 satellites per launch"
+    - "GEO/HEO: 1 satellite per launch (dedicated)"
+
+# Cost model metadata
+metadata:
+  version: "1.0"
+  date: "2025-01-31"
+  currency: "FY2024 USD"
+  inflation_reference: "https://www.bls.gov/data/inflation_calculator.htm"
+
+  data_sources:
+    - name: "SDA PWSA Tranche 1/2 Contracts"
+      type: "Public contract announcements"
+      years: "2022-2024"
+      url: "https://www.sda.mil/contracts/"
+
+    - name: "Resilient MW/MT Program"
+      type: "Public budget documents and contract awards"
+      years: "2023-2024"
+      notes: "Millennium Space and BAE Systems contracts"
+
+    - name: "SBIRS Program"
+      type: "Public GAO reports and contract data"
+      years: "2014-2020"
+      notes: "GEO 5+6 contract data, inflation adjusted"
+
+    - name: "Next-Gen OPIR Program"
+      type: "Public budget justification documents"
+      years: "2022-2024"
+      notes: "PB2024 and PB2025 budget books"
+
+  assumptions:
+    - "Costs are procurement only (recurring + allocated NRE)"
+    - "Excludes program management overhead (typically 10-15%)"
+    - "Excludes extensive R&D for new technologies"
+    - "Assumes moderate performance requirements (not exquisite)"
+    - "Inflation adjusted to FY2024 using CPI"
+
+  caveats:
+    - "Actual costs depend on specific requirements and contract structure"
+    - "Government vs commercial pricing can vary significantly"
+    - "First-of-kind systems cost more than follow-on production"
+    - "International programs may have different cost structures"
+    - "Export restrictions and ITAR compliance add cost"

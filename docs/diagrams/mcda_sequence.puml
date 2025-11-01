@@ -1,0 +1,122 @@
+@startuml mcda_sequence
+skinparam backgroundColor #FEFEFE
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 20
+
+actor User
+participant "mcda_engine.py" as Engine
+participant "Config Loader" as Config
+participant "Metrics Loader" as Metrics
+participant "Normalizer" as Norm
+participant "TOPSIS" as TOPSIS
+participant "Tier Classifier" as Tier
+participant "JSON Writer" as JSON
+participant "visualizations.py" as Viz
+participant "PDF Writer" as PDF
+
+User -> Engine : python mcda_engine.py config.yaml
+
+== Configuration Phase ==
+Engine -> Config : load_config(path)
+Config -> Config : parse YAML
+Config -> Config : filter enabled architectures
+Config -> Config : validate (>=2 archs)
+Config -> Config : filter enabled criteria
+Config --> Engine : config dict
+
+== Data Loading Phase ==
+Engine -> Metrics : build_decision_matrix(config)
+loop for each architecture
+    Metrics -> Metrics : load_architecture_data()
+    loop for each criterion
+        Metrics -> Metrics : load_metric_value(metrics_dir, metric_key)
+        Metrics -> Metrics : scan CSV files in metrics_dir
+        alt metric found
+            Metrics -> Metrics : extract value from CSV
+        else metric not found
+            Metrics -> Metrics : return NaN + warning
+        end
+    end
+    Metrics -> Norm : raw_values dict
+end
+
+== Normalization Phase ==
+Norm -> Norm : normalize_threshold_scoring()
+note right
+  For each criterion:
+  - Apply thresholds (excellent/good/marginal)
+  - Map to [0, 1] scale
+  - Respect higher_is_better flag
+end note
+Norm --> Engine : decision_matrix (N×M)
+
+== TOPSIS Execution ==
+Engine -> TOPSIS : run_topsis(matrix, weights)
+TOPSIS -> TOPSIS : normalize columns (vector norm)
+TOPSIS -> TOPSIS : apply weights
+TOPSIS -> TOPSIS : compute ideal solutions (A+, A-)
+TOPSIS -> TOPSIS : calculate distances (d+, d-)
+TOPSIS -> TOPSIS : compute closeness scores
+TOPSIS --> Engine : scores[] (N architectures)
+
+== Tier Classification ==
+Engine -> Tier : classify_tier_by_gates()
+alt has gate criteria
+    loop for each architecture
+        Tier -> Tier : check gate thresholds
+        alt passes all gates (High tier)
+            Tier -> Tier : tier = "High"
+        else fails some gates (Mid tier)
+            Tier -> Tier : tier = "Mid"
+        else fails critically (Low tier)
+            Tier -> Tier : tier = "Low"
+        end
+    end
+else no gate criteria (fallback)
+    Tier -> Tier : classify by TOPSIS score
+    note right
+      tiers.high: score >= 0.7
+      tiers.mid: 0.5 <= score < 0.7
+      tiers.low: score < 0.5
+    end note
+end
+Tier --> Engine : tier assignments
+
+== Results Export ==
+Engine -> JSON : save_results()
+JSON -> JSON : build results dict
+JSON -> JSON : convert numpy types to native
+JSON -> JSON : write JSON file
+JSON --> Engine : results_path
+
+== Visualization Phase ==
+User -> Viz : python visualizations.py results.json config.yaml
+Viz -> Viz : load_results(json_path)
+Viz -> Viz : load_config(config_path) [optional]
+
+Viz -> PDF : create multi-page PDF
+loop for each plot
+    alt plot 1: Ranking Bar Chart
+        Viz -> Viz : plot_ranking_bar()
+        note right: Horizontal bars, color by tier
+    else plot 2: Radar Chart
+        Viz -> Viz : plot_radar()
+        note right: Multi-axis comparison
+    else plot 3: Heatmap
+        Viz -> Viz : plot_heatmap()
+        note right: Normalized scores matrix
+    else plot 4: Waterfall
+        Viz -> Viz : plot_waterfall()
+        note right: Weight contribution breakdown
+    else plot 5: Tier Scatter
+        Viz -> Viz : plot_tier_scatter()
+        note right: 2D gate criteria visualization
+    end
+    Viz -> PDF : add page
+end
+
+PDF -> PDF : set metadata
+PDF --> Viz : pdf_path
+Viz --> User : visualizations.pdf
+
+@enduml

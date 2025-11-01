@@ -1,0 +1,11 @@
+architecture_id,architecture_label,n_satellites,space_segment_M$,ground_segment_M$,nre_M$,integration_test_M$,total_program_M$,cost_per_sat_amortized_M$,baseline_unit_cost_M$,learning_factor,unit_cost_with_learning_M$,metrics_dir
+arch_01,A1 - 24 MEO @23222 km,24,1836.00,650.00,150.00,183.60,2819.60,117.48,90.0,0.85,76.5,valid/reports/20251020T154731Z/HGV_330_metrics
+arch_02,A2 - 48 LEO @450 km,48,1876.80,650.00,150.00,187.68,2864.48,59.68,46.0,0.85,39.1,valid/reports/20251025T211158Z/HGV_330_metrics
+arch_03,A3 - 3 GEO,3,3420.00,500.00,250.00,342.00,4512.00,1504.00,1200.0,0.95,1140.0,valid/reports/20251029T224607Z/HGV_330_metrics
+arch_04,A4 - 3 GEO + 24 LEO @1300 km,27,4399.20,650.00,150.00,439.92,5639.12,208.86,N/A (mixed),N/A (mixed),208.9,valid/reports/20251031T111653Z/HGV_330_metrics
+arch_05,A5 - 3 GEO + 120 LEO @400 km,123,7560.00,1250.00,100.00,756.00,9666.00,78.59,N/A (mixed),N/A (mixed),78.6,valid/reports/20251031T111906Z/HGV_330_metrics
+arch_06,A6 - 8 GEO + 8 HEO,16,14440.00,650.00,150.00,1444.00,16684.00,1042.75,N/A (mixed),N/A (mixed),1042.8,valid/reports/20251031T113159Z/HGV_330_metrics
+arch_07,A7 - 6 GEO,6,6840.00,500.00,250.00,684.00,8274.00,1379.00,1200.0,0.95,1140.0,valid/reports/20251031T113514Z/HGV_330_metrics
+arch_08,A8 - 24 MEO @8000 km,24,2142.00,650.00,150.00,214.20,3156.20,131.51,105.0,0.85,89.2,valid/reports/20251031T113637Z/HGV_330_metrics
+arch_09,A9 - 24 MEO @23222 km (degraded perf.),24,1836.00,650.00,150.00,183.60,2819.60,117.48,90.0,0.85,76.5,valid/reports/20251031T113846Z/HGV_330_metrics
+arch_10,A10 - 120 LEO @400 km,120,4140.00,1250.00,100.00,414.00,5904.00,49.20,46.0,0.75,34.5,valid/reports/20251031T114129Z/HGV_330_metrics
