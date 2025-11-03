@@ -753,7 +753,7 @@ def plot_dynamic(run_id: str, cfg: dict) -> None:
                 }
             )
 
-            print(f"✅ Enhanced visualization saved → {OUT_HTML}")
+            print(f"[OK] Enhanced visualization saved -> {OUT_HTML}")
             print(f"🎯 Open in browser for best experience!")
             print(f"📊 Total frames: {len(plotly_frames)}")
             print(f"🛰️ Satellites tracked: {len(sat_ids)}")

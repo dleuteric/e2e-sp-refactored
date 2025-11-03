@@ -277,7 +277,7 @@ def generate_all_architecture_costs(architectures: list, output_csv=True, update
 
             # Component breakdown for display
             comp_str = " + ".join([
-                f"{c['n_satellites']}×{c['orbit_type']} (${c['unit_cost']:.1f}M ea)"
+                f"{c['n_satellites']}x{c['orbit_type']} (${c['unit_cost']:.1f}M ea)"
                 for c in costs['component_details']
             ])
             print(f"  Components: {comp_str}")
@@ -330,7 +330,7 @@ def generate_all_architecture_costs(architectures: list, output_csv=True, update
     if output_csv:
         output_path = Path(__file__).parent / 'cost_estimates.csv'
         df.to_csv(output_path, index=False, float_format='%.2f')
-        print(f"✓ Saved: {output_path}")
+        print(f"[OK] Saved: {output_path}")
         print()
 
     return df
@@ -358,7 +358,7 @@ def update_cost_csv(csv_path: Path, costs: dict):
 
     # Write CSV
     df.to_csv(csv_path, index=False, float_format='%.6f')
-    print(f"  → Updated: {csv_path}")
+    print(f"  -> Updated: {csv_path}")
 
 
 def find_default_config() -> Path:

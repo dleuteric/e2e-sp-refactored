@@ -153,9 +153,9 @@ class NetworkSimulator:
     def from_run(cls, run_id: str, cfg: dict) -> NetworkSimulator:
         project_root = Path(__file__).resolve().parents[1]  # points to /src
         ephems_dir = (project_root / "exports" / "aligned_ephems" / "satellite_ephems" / run_id).resolve()
-        print(f"[DBG] ephems_dir → {ephems_dir}")
+        print(f"[DBG] ephems_dir -> {ephems_dir}")
         sat_ephem_files = sorted(ephems_dir.rglob("*.csv"))
-        print(f"[DBG] num_files → {len(sat_ephem_files)}")
+        print(f"[DBG] num_files -> {len(sat_ephem_files)}")
 
         sat_ephem_data = {}
         sat_ids = []

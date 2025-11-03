@@ -122,16 +122,16 @@ def compute_all_metrics(data: DataBundle,
     kf_vs_truth = pd.DataFrame()
     if data.has_kf and data.has_truth:
         kf_vs_truth = _align_series(data.kf, data.truth, prefix="kf")
-        LOGGER.info("✓ KF aligned: %d samples", len(kf_vs_truth))
+        LOGGER.info("[OK] KF aligned: %d samples", len(kf_vs_truth))
     else:
-        LOGGER.warning("✗ Cannot align KF (missing data)")
+        LOGGER.warning("[FAIL] Cannot align KF (missing data)")
 
     gpm_vs_truth = pd.DataFrame()
     if data.has_gpm and data.has_truth:
         gpm_vs_truth = _align_series(data.gpm, data.truth, prefix="gpm")
-        LOGGER.info("✓ GPM aligned: %d samples", len(gpm_vs_truth))
+        LOGGER.info("[OK] GPM aligned: %d samples", len(gpm_vs_truth))
     else:
-        LOGGER.warning("✗ Cannot align GPM (missing data)")
+        LOGGER.warning("[FAIL] Cannot align GPM (missing data)")
 
     alignment = AlignmentData(
         kf_vs_truth=kf_vs_truth,
@@ -144,10 +144,10 @@ def compute_all_metrics(data: DataBundle,
     LOGGER.debug("Computing error statistics...")
 
     kf_errors = _summarise_errors(alignment.kf_vs_truth, "kf")
-    LOGGER.info("✓ KF errors computed: %d metrics", len(kf_errors))
+    LOGGER.info("[OK] KF errors computed: %d metrics", len(kf_errors))
 
     gpm_errors = _summarise_errors(alignment.gpm_vs_truth, "gpm")
-    LOGGER.info("✓ GPM errors computed: %d metrics", len(gpm_errors))
+    LOGGER.info("[OK] GPM errors computed: %d metrics", len(gpm_errors))
 
     # ========================================================================
     # 3. UPDATE STATISTICS
@@ -156,9 +156,9 @@ def compute_all_metrics(data: DataBundle,
 
     kf_updates = _summarise_updates(alignment.kf_vs_truth, "Filter")
     if not kf_updates.empty:
-        LOGGER.info("✓ KF updates computed")
+        LOGGER.info("[OK] KF updates computed")
     else:
-        LOGGER.warning("✗ No update statistics (missing 'did_update' column)")
+        LOGGER.warning("[FAIL] No update statistics (missing 'did_update' column)")
 
     # ========================================================================
     # 4. NIS/NEES CONSISTENCY
@@ -171,9 +171,9 @@ def compute_all_metrics(data: DataBundle,
         state_dim=state_dim,
     )
     if not nis_nees.empty:
-        LOGGER.info("✓ NIS/NEES computed: %d metrics", len(nis_nees))
+        LOGGER.info("[OK] NIS/NEES computed: %d metrics", len(nis_nees))
     else:
-        LOGGER.warning("✗ No NIS/NEES statistics (missing columns)")
+        LOGGER.warning("[FAIL] No NIS/NEES statistics (missing columns)")
 
     # ========================================================================
     # 5. GEOMETRY STATISTICS
@@ -200,7 +200,7 @@ def compute_all_metrics(data: DataBundle,
                         geometry,
                         pd.DataFrame([{'metric': 'coverage_percent', 'value': coverage_pct}])
                     ], ignore_index=True)
-                LOGGER.info("✓ MGM-based coverage: %.1f%%", coverage_pct)
+                LOGGER.info("[OK] MGM-based coverage: %.1f%%", coverage_pct)
         except Exception as e:
             LOGGER.warning("Failed to compute MGM coverage: %s", e)
 
@@ -219,11 +219,11 @@ def compute_all_metrics(data: DataBundle,
                     geometry,
                     pd.DataFrame([{'metric': 'gaps_count', 'value': gaps_count}])
                 ], ignore_index=True)
-            LOGGER.info("✓ Coverage gaps: %d", gaps_count)
+            LOGGER.info("[OK] Coverage gaps: %d", gaps_count)
         except Exception as e:
             LOGGER.warning("Failed to compute gaps: %s", e)
 
-    LOGGER.info("✓ Geometry statistics: %d metrics", len(geometry))
+    LOGGER.info("[OK] Geometry statistics: %d metrics", len(geometry))
 
     # ========================================================================
     # 6. COVARIANCE STATISTICS
@@ -232,9 +232,9 @@ def compute_all_metrics(data: DataBundle,
 
     covariance = _covariance_stats(data.gpm)
     if not covariance.empty:
-        LOGGER.info("✓ Covariance statistics: %d metrics", len(covariance))
+        LOGGER.info("[OK] Covariance statistics: %d metrics", len(covariance))
     else:
-        LOGGER.warning("✗ No covariance statistics (missing P_xx, P_yy, P_zz)")
+        LOGGER.warning("[FAIL] No covariance statistics (missing P_xx, P_yy, P_zz)")
 
     # ========================================================================
     # 7. DATA AGE STATISTICS
@@ -243,9 +243,9 @@ def compute_all_metrics(data: DataBundle,
 
     data_age = data_age_stats(data.comms_ground, data.comms_onboard)
     if not data_age.empty:
-        LOGGER.info("✓ Data age statistics: %d modes", len(data_age))
+        LOGGER.info("[OK] Data age statistics: %d modes", len(data_age))
     else:
-        LOGGER.warning("✗ No data age statistics (no comms data)")
+        LOGGER.warning("[FAIL] No data age statistics (no comms data)")
 
     # ========================================================================
     # RETURN BUNDLE

@@ -114,7 +114,7 @@ def update(x_pred: np.ndarray, P_pred: np.ndarray,
         if _np.any(needs_floor):
             for idx in _np.where(needs_floor)[0]:
                 R_eff[idx, idx] += (_MIN_MEAS_VAR_KM2 - diag[idx])
-            floor_std_m = (_np.sqrt(_MIN_MEAS_VAR_KM2) * 1.0e3)  # → metri
+            floor_std_m = (_np.sqrt(_MIN_MEAS_VAR_KM2) * 1.0e3)  # -> metri
 
     v = z - H @ x_pred
     S = H @ P_pred @ H.T + R_eff

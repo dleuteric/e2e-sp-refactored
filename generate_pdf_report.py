@@ -90,7 +90,7 @@ def generate_report(run_id: str,
     # Verify data exists
     truth_path = REPO / "exports" / "aligned_ephems" / "targets_ephems" / run_id / f"{target_id}.csv"
     if not truth_path.exists():
-        logger.error("❌ Truth ephemeris not found: %s", truth_path)
+        logger.error("[FAIL] Truth ephemeris not found: %s", truth_path)
         logger.error("   Make sure RUN_ID and TARGET_ID are correct")
         return 1
 
@@ -98,7 +98,7 @@ def generate_report(run_id: str,
     try:
         from core.config import get_config
         cfg = get_config()
-        logger.debug("✓ Config loaded")
+        logger.debug("[OK] Config loaded")
     except Exception as e:
         logger.warning("Could not load config: %s (continuing with defaults)", e)
         cfg = {}
@@ -119,7 +119,7 @@ def generate_report(run_id: str,
 
         print()
         print("=" * 80)
-        print("  ✓✓✓ GENERATION COMPLETE ✓✓✓")
+        print("  [OK][OK][OK] GENERATION COMPLETE [OK][OK][OK]")
         print("=" * 80)
         print(f"  Output file:  {pdf_path}")
         print(f"  File size:    {size_kb:.1f} KB")
@@ -134,12 +134,12 @@ def generate_report(run_id: str,
         return 0
 
     except FileNotFoundError as e:
-        logger.error("❌ Data file not found: %s", e)
+        logger.error("[FAIL] Data file not found: %s", e)
         logger.error("   Check that exports/ directory contains data for this run")
         return 1
 
     except Exception as e:
-        logger.error("❌ Report generation failed: %s", e)
+        logger.error("[FAIL] Report generation failed: %s", e)
         if verbose:
             import traceback
             traceback.print_exc()
@@ -213,13 +213,13 @@ def list_available_runs():
     ephems_dir = REPO / "exports" / "aligned_ephems" / "targets_ephems"
 
     if not ephems_dir.exists():
-        print("❌ No exports directory found")
+        print("[FAIL] No exports directory found")
         return
 
     runs = sorted([d.name for d in ephems_dir.iterdir() if d.is_dir()])
 
     if not runs:
-        print("❌ No runs found in exports/")
+        print("[FAIL] No runs found in exports/")
         return
 
     print()

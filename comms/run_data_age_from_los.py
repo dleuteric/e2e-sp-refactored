@@ -21,7 +21,7 @@ import comms.data_age as data_age_mod
 # Run configuration
 # --------------------
 RUN_ID: str = "20251013T182619Z"            # default run id (override here)
-SAT_IDS: List[str] = []          # es. ["LEO_P1_S1", "LEO_P2_S3"]; vuoto → tutti
+SAT_IDS: List[str] = []          # es. ["LEO_P1_S1", "LEO_P2_S3"]; vuoto -> tutti
 SAMPLE_EVERY: int = 1                         # usa 1 evento ogni N (1 = nessun campionamento)
 MAX_EVENTS: Optional[int] = None              # opzionale: limita #eventi dopo filtro/campionamento
 
@@ -80,7 +80,7 @@ def main(argv):
     # Limite massimo opzionale
     if MAX_EVENTS is not None:
         events_sampled = events_sampled[:MAX_EVENTS]
-        print(f"[INFO] MAX_EVENTS attivo → processeremo {len(events_sampled)} eventi campionati")
+        print(f"[INFO] MAX_EVENTS attivo -> processeremo {len(events_sampled)} eventi campionati")
 
     def _safe_apply(ev):
         try:
@@ -136,15 +136,15 @@ def main(argv):
             add_lines=True,
         )
         if html_path:
-            print(f"[OK] HTML plot    → {html_path}")
+            print(f"[OK] HTML plot    -> {html_path}")
     except Exception as e:
         print(f"[WARN] HTML interattivo non generato: {e}")
 
 
-    print(f"[OK] Data age CSV  → {out_csv}")
-    print(f"[OK] Data age KPI  → {out_json}")
-    print(f"[OK] Plots (if any)→ {out_dir}")
-    print(f"[OK] Per-sat CSVs  → {per_sat_dir}")
+    print(f"[OK] Data age CSV  -> {out_csv}")
+    print(f"[OK] Data age KPI  -> {out_json}")
+    print(f"[OK] Plots (if any)-> {out_dir}")
+    print(f"[OK] Per-sat CSVs  -> {per_sat_dir}")
 
 
 if __name__ == "__main__":

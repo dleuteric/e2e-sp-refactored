@@ -32,8 +32,8 @@ Store the track in:
 """
 Build an "aged" track CSV by merging the filtered track with the latency/age
 computed by either:
-  • Ground-processing provenance  → takes column  measurement_age_ms
-  • Onboard-processing provenance → takes column  age_total_ms
+  • Ground-processing provenance  -> takes column  measurement_age_ms
+  • Onboard-processing provenance -> takes column  age_total_ms
 
 Output columns (exact order):
   epoch_utc, x_km, y_km, z_km, vx_kmps, vy_kmps, vz_kmps, ax_kmps2, ay_kmps2, az_kmps2, age_ms
@@ -173,7 +173,7 @@ def main() -> None:
 
     OUT_CSV.parent.mkdir(parents=True, exist_ok=True)
     out.to_csv(OUT_CSV, index=False)
-    print(f"[OK] aged track → {OUT_CSV}")
+    print(f"[OK] aged track -> {OUT_CSV}")
 
 
 if __name__ == "__main__":

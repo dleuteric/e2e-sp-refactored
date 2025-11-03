@@ -25,8 +25,8 @@ def build_track_provenance_multilayer(
     """
     Track provenance with multilayer breakdown:
     - photon_ms: range/c from tracking sats
-    - cross_layer_ms: tracking → transport ISL
+    - cross_layer_ms: tracking -> transport ISL
     - processing_transport_ms: fusion on transport sat
-    - downlink_ms: transport → ground
+    - downlink_ms: transport -> ground
     - measurement_age_ms: sum of all
     """

@@ -70,7 +70,7 @@ try:
         ReportSettings, InputData, AlignmentData,
     )
 
-    LOGGER.info("✓ Imported utilities from report_generation.py")
+    LOGGER.info("[OK] Imported utilities from report_generation.py")
 except ImportError as e:
     LOGGER.error("Failed to import from report_generation.py: %s", e)
     LOGGER.error("Make sure you're running from repo root")
@@ -83,7 +83,7 @@ try:
     from plotly.subplots import make_subplots
 
     PLOTLY_OK = True
-    LOGGER.info("✓ Plotly available")
+    LOGGER.info("[OK] Plotly available")
 except ImportError:
     PLOTLY_OK = False
     LOGGER.warning("Plotly not available - HTML plots disabled")
@@ -95,7 +95,7 @@ try:
     import matplotlib.patches as mpatches
 
     MATPLOTLIB_OK = True
-    LOGGER.info("✓ Matplotlib available")
+    LOGGER.info("[OK] Matplotlib available")
 except ImportError:
     MATPLOTLIB_OK = False
     LOGGER.warning("Matplotlib not available - PDF export disabled")
@@ -115,7 +115,7 @@ def load_run_manifest(run_id: str) -> Optional[Dict[str, Any]]:
     try:
         with open(manifest_path, 'r') as f:
             manifest = json.load(f)
-        LOGGER.info("✓ Loaded manifest from: %s", manifest_path)
+        LOGGER.info("[OK] Loaded manifest from: %s", manifest_path)
         return manifest
     except Exception as exc:
         LOGGER.warning("Failed to load manifest: %s", exc)
@@ -141,7 +141,7 @@ def extract_active_layers(manifest: Optional[Dict[str, Any]]) -> List[Dict[str, 
             if isinstance(layer, dict) and layer.get('enabled', False):
                 active_layers.append(layer)
 
-    LOGGER.info("✓ Found %d active layer(s)", len(active_layers))
+    LOGGER.info("[OK] Found %d active layer(s)", len(active_layers))
     return active_layers
 
 
@@ -157,7 +157,7 @@ def format_active_layers_summary(layers: List[Dict[str, Any]]) -> str:
         inc = layer.get('inclination_deg', '?')
         planes = layer.get('num_planes', '?')
         sats = layer.get('sats_per_plane', '?')
-        summaries.append(f"{name} ({planes}×{sats} @ {alt}km, {inc}°)")
+        summaries.append(f"{name} ({planes}x{sats} @ {alt}km, {inc}°)")
 
     return " | ".join(summaries)
 
@@ -338,7 +338,7 @@ def generate_constellation_plots(run_id: str, target_id: str) -> Dict[str, go.Fi
             fig_2d = build_groundtracks_figure(sats_dir, tgt_dir)
             fig_2d.update_layout(title=f"Ground Tracks — {run_id}")
             figures['constellation_2d_groundtrack'] = fig_2d
-            LOGGER.info("  ✓ Generated 2D ground track plot")
+            LOGGER.info("  [OK] Generated 2D ground track plot")
         except Exception as exc:
             LOGGER.warning("  Failed to generate 2D plot: %s", exc, exc_info=VERBOSE)
 
@@ -348,7 +348,7 @@ def generate_constellation_plots(run_id: str, target_id: str) -> Dict[str, go.Fi
             fig_3d = build_orbits3d_figure(sats_dir, tgt_dir)
             fig_3d.update_layout(title=f"3D Constellation View — {run_id}")
             figures['constellation_3d_orbits'] = fig_3d
-            LOGGER.info("  ✓ Generated 3D orbit plot")
+            LOGGER.info("  [OK] Generated 3D orbit plot")
         except Exception as exc:
             LOGGER.warning("  Failed to generate 3D plot: %s", exc, exc_info=VERBOSE)
 
@@ -401,7 +401,7 @@ def generate_network_plots(run_id: str, target_id: str, cfg: Dict[str, Any]) -> 
             LOGGER.info("  Building 2D network topology...")
             fig_2d = _build_network_topology_2d(net, t_rep, run_id, target_id, cfg, events)
             figures['network_2d_topology'] = fig_2d
-            LOGGER.info("  ✓ Generated 2D network topology")
+            LOGGER.info("  [OK] Generated 2D network topology")
         except Exception as exc:
             LOGGER.warning("  Failed 2D topology: %s", exc, exc_info=VERBOSE)
 
@@ -410,7 +410,7 @@ def generate_network_plots(run_id: str, target_id: str, cfg: Dict[str, Any]) -> 
             LOGGER.info("  Building 3D network geometry...")
             fig_3d = _build_network_geometry_3d(net, t_rep, run_id, target_id)
             figures['network_3d_geometry'] = fig_3d
-            LOGGER.info("  ✓ Generated 3D network geometry")
+            LOGGER.info("  [OK] Generated 3D network geometry")
         except Exception as exc:
             LOGGER.warning("  Failed 3D geometry: %s", exc, exc_info=VERBOSE)
 
@@ -470,7 +470,7 @@ def _classify_satellites(net, t: float, los_events: list, target_id: str, run_id
 #
 #     fig = go.Figure()
 #
-#     # Helper: ECEF [m] → (lat, lon) [deg]
+#     # Helper: ECEF [m] -> (lat, lon) [deg]
 #     def ecef_to_latlon(x_m, y_m, z_m):
 #         x, y, z = x_m / 1000.0, y_m / 1000.0, z_m / 1000.0
 #         r = np.sqrt(x ** 2 + y ** 2 + z ** 2)
@@ -509,7 +509,7 @@ def _classify_satellites(net, t: float, los_events: list, target_id: str, run_id
 #     all_sats = [nid for nid, n in net._nodes.items() if n.node_type == "satellite"]
 #     all_gnds = [nid for nid, n in net._nodes.items() if n.node_type == "ground"]
 #
-#     # Positions → (lat, lon)
+#     # Positions -> (lat, lon)
 #     sat_latlon = {}
 #     gnd_latlon = {}
 #     for sat in all_sats:
@@ -575,13 +575,13 @@ def _classify_satellites(net, t: float, los_events: list, target_id: str, run_id
 #             except Exception:
 #                 continue
 #
-#     # Visible sats (LOS→target) near t
+#     # Visible sats (LOS->target) near t
 #     vis_sats = set()
 #     for ev in los_events:
 #         if abs(ev.t_gen - t) <= 1.0:
 #             vis_sats.add(ev.sat_id)
 #
-#     legend = {k: False for k in ['ISL idle', 'ISL active', 'Downlink idle', 'Downlink active', 'LOS sat→target']}
+#     legend = {k: False for k in ['ISL idle', 'ISL active', 'Downlink idle', 'Downlink active', 'LOS sat->target']}
 #
 #     # ISL idle
 #     for a, b in idle_isl:
@@ -629,15 +629,15 @@ def _classify_satellites(net, t: float, los_events: list, target_id: str, run_id
 #         add_seg(ls, los, lg, log, 'rgba(77,255,77,0.8)', 2.0, 'solid', 'Downlink active', show)
 #         legend['Downlink active'] = True
 #
-#     # LOS sat→target
+#     # LOS sat->target
 #     if target_latlon is not None:
 #         lt, lot = target_latlon
 #         for s in vis_sats:
 #             if s in sat_latlon:
 #                 ls, los = sat_latlon[s]
-#                 show = not legend['LOS sat→target']
-#                 add_seg(ls, los, lt, lot, 'rgba(255,165,0,0.9)', 2.5, 'dash', 'LOS sat→target', show)
-#                 legend['LOS sat→target'] = True
+#                 show = not legend['LOS sat->target']
+#                 add_seg(ls, los, lt, lot, 'rgba(255,165,0,0.9)', 2.5, 'dash', 'LOS sat->target', show)
+#                 legend['LOS sat->target'] = True
 #
 #     # Target marker
 #     if target_latlon is not None:
@@ -721,7 +721,7 @@ def _build_network_topology_2d(net, t: float, run_id: str, target_id: str,
 
     fig = go.Figure()
 
-    # Helper: ECEF [m] → (lat, lon) [deg]
+    # Helper: ECEF [m] -> (lat, lon) [deg]
     def ecef_to_latlon(x_m, y_m, z_m):
         x, y, z = x_m / 1000.0, y_m / 1000.0, z_m / 1000.0
         r = np.sqrt(x ** 2 + y ** 2 + z ** 2)
@@ -754,7 +754,7 @@ def _build_network_topology_2d(net, t: float, run_id: str, target_id: str,
     # Classify satellites
     sat_classes = _classify_satellites(net, t, los_events, target_id, run_id)
 
-    # Positions → (lat, lon)
+    # Positions -> (lat, lon)
     sat_latlon = {}
     for sat in all_sats:
         x, y, z = net._pos_fn(sat, t)
@@ -869,15 +869,15 @@ def _build_network_topology_2d(net, t: float, run_id: str, target_id: str,
         add_seg(ls, los, lg, log, 'rgba(77,255,77,1.0)', 2.5, 'solid', 'Downlink active', show)
         legend['Downlink active'] = True
 
-    # 5. LOS sat→target (red, dashed, thick)
+    # 5. LOS sat->target (red, dashed, thick)
     if target_latlon is not None:
         lt, lot = target_latlon
         for s in sat_classes['tracking']:
             if s in sat_latlon:
                 ls, los = sat_latlon[s]
-                show = 'LOS sat→target' not in legend
-                add_seg(ls, los, lt, lot, 'rgba(255,77,77,0.9)', 2.5, 'dash', 'LOS sat→target', show)
-                legend['LOS sat→target'] = True
+                show = 'LOS sat->target' not in legend
+                add_seg(ls, los, lt, lot, 'rgba(255,77,77,0.9)', 2.5, 'dash', 'LOS sat->target', show)
+                legend['LOS sat->target'] = True
 
     # TARGET (diamond, red)
     if target_latlon is not None:
@@ -1106,7 +1106,7 @@ def _build_network_geometry_3d(net, t: float, run_id: str, target_id: str) -> go
         'ISL active': False,
         'Downlink idle': False,
         'Downlink active': False,
-        'LOS sat→target': False
+        'LOS sat->target': False
     }
 
     # 1. ISL IDLE
@@ -1167,17 +1167,17 @@ def _build_network_geometry_3d(net, t: float, run_id: str, target_id: str) -> go
                  name='Downlink active', showlegend=show)
         legend_shown['Downlink active'] = True
 
-    # 5. LOS sat→target (RED, DASHED)
+    # 5. LOS sat->target (RED, DASHED)
     if target_position is not None:
         x_t, y_t, z_t = target_position
         for sat in sat_classes.get('tracking', set()):
             if sat in sat_positions:
                 x_s, y_s, z_s = sat_positions[sat]
-                show = not legend_shown['LOS sat→target']
+                show = not legend_shown['LOS sat->target']
                 add_line(x_s, y_s, z_s, x_t, y_t, z_t,
                          color='rgba(255,77,77,0.95)', width=4, dash='dash',
-                         name='LOS sat→target', showlegend=show)
-                legend_shown['LOS sat→target'] = True
+                         name='LOS sat->target', showlegend=show)
+                legend_shown['LOS sat->target'] = True
 
     # 6. TARGET
     if target_position is not None:
@@ -1306,7 +1306,7 @@ def load_comms_ground_age(run_id: str, target_id: str) -> pd.DataFrame:
         try:
             df = pd.read_csv(track_age)
             if "measurement_age_ms" in df.columns:
-                LOGGER.info("✓ Loaded ground age: %s", track_age.name)
+                LOGGER.info("[OK] Loaded ground age: %s", track_age.name)
                 return df
         except Exception as exc:
             LOGGER.warning("Failed to load ground age CSV: %s", exc)
@@ -1318,7 +1318,7 @@ def load_comms_ground_age(run_id: str, target_id: str) -> pd.DataFrame:
                 try:
                     df = pd.read_csv(csv)
                     if "measurement_age_ms" in df.columns:
-                        LOGGER.info("✓ Loaded ground age: %s", csv.name)
+                        LOGGER.info("[OK] Loaded ground age: %s", csv.name)
                         return df
                 except Exception:
                     continue
@@ -1333,7 +1333,7 @@ def load_comms_onboard_age(run_id: str, target_id: str) -> pd.DataFrame:
         try:
             df = pd.read_csv(track_age)
             if "age_total_ms" in df.columns:
-                LOGGER.info("✓ Loaded onboard age: %s", track_age.name)
+                LOGGER.info("[OK] Loaded onboard age: %s", track_age.name)
                 return df
         except Exception as exc:
             LOGGER.warning("Failed to load onboard age CSV: %s", exc)
@@ -1345,7 +1345,7 @@ def load_comms_onboard_age(run_id: str, target_id: str) -> pd.DataFrame:
                 try:
                     df = pd.read_csv(csv)
                     if "age_total_ms" in df.columns:
-                        LOGGER.info("✓ Loaded onboard age: %s", csv.name)
+                        LOGGER.info("[OK] Loaded onboard age: %s", csv.name)
                         return df
                 except Exception:
                     continue
@@ -2498,7 +2498,7 @@ def export_pdf_report(
                 pdf.savefig(fig, bbox_inches='tight')
                 plt.close()
 
-        LOGGER.info("✓ PDF report saved: %s", pdf_path)
+        LOGGER.info("[OK] PDF report saved: %s", pdf_path)
     except Exception as exc:
         LOGGER.warning("Failed to generate PDF: %s", exc)
 
@@ -2620,7 +2620,7 @@ def generate_report(run_id: str, target_id: str) -> Dict[str, Path]:
 
                     kf_aligned = merged.set_index('epoch').sort_index()
                     kf_aligned = kf_aligned.rename(columns={'measurement_age_ms': 'age_ground_ms'})
-                    LOGGER.info("  ✓ Merged ground age data (%d samples)",
+                    LOGGER.info("  [OK] Merged ground age data (%d samples)",
                                 kf_aligned['age_ground_ms'].notna().sum())
             except Exception as exc:
                 LOGGER.warning("  Failed to merge ground age: %s", exc, exc_info=True)
@@ -2649,7 +2649,7 @@ def generate_report(run_id: str, target_id: str) -> Dict[str, Path]:
 
                     kf_aligned = merged.set_index('epoch').sort_index()
                     kf_aligned = kf_aligned.rename(columns={'age_total_ms': 'age_onboard_ms'})
-                    LOGGER.info("  ✓ Merged onboard age data (%d samples)",
+                    LOGGER.info("  [OK] Merged onboard age data (%d samples)",
                                 kf_aligned['age_onboard_ms'].notna().sum())
             except Exception as exc:
                 LOGGER.warning("  Failed to merge onboard age: %s", exc, exc_info=True)
@@ -2710,7 +2710,7 @@ def generate_report(run_id: str, target_id: str) -> Dict[str, Path]:
             inc = layer.get('inclination_deg', '?')
             planes = layer.get('num_planes', '?')
             sats = layer.get('sats_per_plane', '?')
-            items.append(f"<li><strong>{name}</strong>: {planes}×{sats} @ {alt} km, {inc}°</li>")
+            items.append(f"<li><strong>{name}</strong>: {planes}x{sats} @ {alt} km, {inc}°</li>")
         orbit_layers_html = "<ul>" + "".join(items) + "</ul>"
 
     propagation_html = "-"
@@ -2759,12 +2759,12 @@ def generate_report(run_id: str, target_id: str) -> Dict[str, Path]:
         contact_fig = build_contact_analysis_figure(mgm, target_id)
         if contact_fig is not None:
             figures["contact_analysis"] = contact_fig
-            LOGGER.info("  ✓ Generated contact analysis plot")
+            LOGGER.info("  [OK] Generated contact analysis plot")
 
         geometry_timeline_fig = build_geometry_timeline_figure(kf, triangulation, target_id)
         if geometry_timeline_fig is not None:
             figures["geometry_timeline"] = geometry_timeline_fig
-            LOGGER.info("  ✓ Generated geometry timeline plot")
+            LOGGER.info("  [OK] Generated geometry timeline plot")
 
         if not mgm.empty and 'sat' in mgm.columns and 'visible' in mgm.columns:
             contact_summary = []
@@ -2866,7 +2866,7 @@ def generate_report(run_id: str, target_id: str) -> Dict[str, Path]:
         range_summary_fig = build_range_summary_figure(mgm, truth, target_id)
         if range_summary_fig is not None:
             figures["range_summary"] = range_summary_fig
-            LOGGER.info("  ✓ Generated range summary plot")
+            LOGGER.info("  [OK] Generated range summary plot")
 
         if INCLUDE_COMMS and not comms_ground.empty:
             fig = go.Figure()
@@ -2910,7 +2910,7 @@ def generate_report(run_id: str, target_id: str) -> Dict[str, Path]:
     html_content = build_html_report(run_id, target_id, settings, alignment, metrics,
                                      figures, header_info, kpis, active_layers_summary)
     html_path.write_text(html_content, encoding='utf-8')
-    LOGGER.info("✓ HTML report: %s", html_path)
+    LOGGER.info("[OK] HTML report: %s", html_path)
 
     # === NEW: Export SVG for all figures ===
     svg_dir = output_dir / f"{target_id}_svgs"
@@ -2928,7 +2928,7 @@ def generate_report(run_id: str, target_id: str) -> Dict[str, Path]:
                 LOGGER.warning(f"  Failed to export {fig_name} as SVG: {exc}")
 
         if svg_exported > 0:
-            LOGGER.info("✓ SVG exports: %d files → %s", svg_exported, svg_dir)
+            LOGGER.info("[OK] SVG exports: %d files -> %s", svg_exported, svg_dir)
 
     pdf_path = output_dir / f"{target_id}_report.pdf"
     export_pdf_report(html_path, pdf_path, metrics, kpis)
@@ -2938,7 +2938,7 @@ def generate_report(run_id: str, target_id: str) -> Dict[str, Path]:
     for name, table in metrics.items():
         csv_path = csv_dir / f"{name}.csv"
         table.to_csv(csv_path, index=True)
-    LOGGER.info("✓ CSV metrics: %s", csv_dir)
+    LOGGER.info("[OK] CSV metrics: %s", csv_dir)
 
     LOGGER.info("\n" + "=" * 60)
     LOGGER.info("REPORT GENERATION COMPLETE")

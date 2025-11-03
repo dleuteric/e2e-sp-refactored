@@ -141,9 +141,9 @@ def load_all_data(run_id: str, target_id: str,
 
     if truth_path:
         truth = _load_truth(truth_path)
-        LOGGER.info("✓ Truth loaded: %s (%d samples)", truth_path.name, len(truth))
+        LOGGER.info("[OK] Truth loaded: %s (%d samples)", truth_path.name, len(truth))
     else:
-        LOGGER.warning("✗ Truth not found: %s", truth_pattern)
+        LOGGER.warning("[FAIL] Truth not found: %s", truth_pattern)
         truth = pd.DataFrame(columns=["x_km", "y_km", "z_km"])
 
     # ========================================================================
@@ -160,9 +160,9 @@ def load_all_data(run_id: str, target_id: str,
 
     if kf_path:
         kf = _load_kf(kf_path)
-        LOGGER.info("✓ KF track loaded: %s (%d samples)", kf_path.name, len(kf))
+        LOGGER.info("[OK] KF track loaded: %s (%d samples)", kf_path.name, len(kf))
     else:
-        LOGGER.warning("✗ KF track not found in: %s", [str(p) for p in kf_candidates])
+        LOGGER.warning("[FAIL] KF track not found in: %s", [str(p) for p in kf_candidates])
         kf = pd.DataFrame(columns=["x_km", "y_km", "z_km"])
 
     # ========================================================================
@@ -178,9 +178,9 @@ def load_all_data(run_id: str, target_id: str,
 
     if gpm_files:
         gpm = _load_gpm(gpm_files, target_id)
-        LOGGER.info("✓ GPM loaded: %d files, %d samples", len(gpm_files), len(gpm))
+        LOGGER.info("[OK] GPM loaded: %d files, %d samples", len(gpm_files), len(gpm))
     else:
-        LOGGER.warning("✗ GPM not found in: %s", gpm_dir)
+        LOGGER.warning("[FAIL] GPM not found in: %s", gpm_dir)
         gpm = pd.DataFrame(columns=["x_km", "y_km", "z_km"])
 
     # ========================================================================
@@ -196,9 +196,9 @@ def load_all_data(run_id: str, target_id: str,
 
     if mgm_files:
         mgm = _load_mgm(mgm_files, target_id)
-        LOGGER.info("✓ MGM loaded: %d files, %d samples", len(mgm_files), len(mgm))
+        LOGGER.info("[OK] MGM loaded: %d files, %d samples", len(mgm_files), len(mgm))
     else:
-        LOGGER.warning("✗ MGM not found in: %s", mgm_dir)
+        LOGGER.warning("[FAIL] MGM not found in: %s", mgm_dir)
         mgm = pd.DataFrame(columns=["sat", "visible"])
 
     # ========================================================================
@@ -212,15 +212,15 @@ def load_all_data(run_id: str, target_id: str,
 
         comms_ground = load_comms_ground_age(run_id, target_id)
         if not comms_ground.empty:
-            LOGGER.info("✓ Comms ground loaded: %d samples", len(comms_ground))
+            LOGGER.info("[OK] Comms ground loaded: %d samples", len(comms_ground))
         else:
-            LOGGER.warning("✗ Comms ground not found")
+            LOGGER.warning("[FAIL] Comms ground not found")
 
         comms_onboard = load_comms_onboard_age(run_id, target_id)
         if not comms_onboard.empty:
-            LOGGER.info("✓ Comms onboard loaded: %d samples", len(comms_onboard))
+            LOGGER.info("[OK] Comms onboard loaded: %d samples", len(comms_onboard))
         else:
-            LOGGER.warning("✗ Comms onboard not found")
+            LOGGER.warning("[FAIL] Comms onboard not found")
 
     # ========================================================================
     # RETURN BUNDLE
@@ -274,12 +274,12 @@ def summarize_data_bundle(data: DataBundle) -> str:
         f"  Run:    {data.run_id}",
         f"  Target: {data.target_id}",
         f"",
-        f"  Truth:         {len(data.truth):6d} samples  {'✓' if data.has_truth else '✗'}",
-        f"  KF Track:      {len(data.kf):6d} samples  {'✓' if data.has_kf else '✗'}",
-        f"  GPM:           {len(data.gpm):6d} samples  {'✓' if data.has_gpm else '✗'}",
-        f"  MGM:           {len(data.mgm):6d} samples  {'✓' if data.has_mgm else '✗'}",
-        f"  Comms Ground:  {len(data.comms_ground):6d} samples  {'✓' if not data.comms_ground.empty else '✗'}",
-        f"  Comms Onboard: {len(data.comms_onboard):6d} samples  {'✓' if not data.comms_onboard.empty else '✗'}",
+        f"  Truth:         {len(data.truth):6d} samples  {'[OK]' if data.has_truth else '[FAIL]'}",
+        f"  KF Track:      {len(data.kf):6d} samples  {'[OK]' if data.has_kf else '[FAIL]'}",
+        f"  GPM:           {len(data.gpm):6d} samples  {'[OK]' if data.has_gpm else '[FAIL]'}",
+        f"  MGM:           {len(data.mgm):6d} samples  {'[OK]' if data.has_mgm else '[FAIL]'}",
+        f"  Comms Ground:  {len(data.comms_ground):6d} samples  {'[OK]' if not data.comms_ground.empty else '[FAIL]'}",
+        f"  Comms Onboard: {len(data.comms_onboard):6d} samples  {'[OK]' if not data.comms_onboard.empty else '[FAIL]'}",
     ]
     return "\n".join(lines)
 

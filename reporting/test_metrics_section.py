@@ -45,7 +45,7 @@ def main():
     kpi_context = SimpleNamespace(metrics=metrics, data=data)
     kpis = extract_all_kpis(kpi_context)
 
-    print(f"✓ Ready: {len(metrics.kf_errors)} filter metrics")
+    print(f"[OK] Ready: {len(metrics.kf_errors)} filter metrics")
 
     # Build PDF
     print("\n[2/3] Building PDF with all sections...")
@@ -79,13 +79,13 @@ def main():
 
         flowables = section.render(context)
         story.extend(flowables)
-        print(f"  ✓ {section.config.name}")
+        print(f"  [OK] {section.config.name}")
 
     page_template = create_page_template_function(RUN_ID, TARGET_ID)
     doc.build(story, onFirstPage=page_template, onLaterPages=page_template)
 
     size_kb = output_path.stat().st_size / 1024
-    print(f"✓ PDF: {size_kb:.1f} KB")
+    print(f"[OK] PDF: {size_kb:.1f} KB")
 
     # Validate
     print("\n[3/3] Validation")
@@ -93,10 +93,10 @@ def main():
     if size_kb < 25:
         print(f"⚠ Small ({size_kb:.1f} KB)")
     else:
-        print(f"✓ Size OK")
+        print(f"[OK] Size OK")
 
     print("\n" + "=" * 70)
-    print("✓✓✓ TEST PASSED ✓✓✓")
+    print("[OK][OK][OK] TEST PASSED [OK][OK][OK]")
     print("=" * 70)
     print(f"\nPDF with 3 sections (header, dashboard, metrics):")
     print(f"  {output_path.absolute()}")

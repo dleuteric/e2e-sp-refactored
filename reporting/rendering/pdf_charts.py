@@ -92,7 +92,7 @@ def export_plotly_figure(
         )
 
         size_kb = output_path.stat().st_size / 1024
-        LOGGER.info("✓ Exported: %s (%.1f KB)", output_path.name, size_kb)
+        LOGGER.info("[OK] Exported: %s (%.1f KB)", output_path.name, size_kb)
 
         return output_path
 
@@ -162,7 +162,7 @@ def create_figure_flowable(
     pdf_width = min(max_width, CONTENT_WIDTH)
     pdf_height = pdf_width / aspect_ratio
 
-    LOGGER.debug("Scaling image: %dx%d px → %.1fx%.1f cm",
+    LOGGER.debug("Scaling image: %dx%d px -> %.1fx%.1f cm",
                  img_width_px, img_height_px,
                  pdf_width / cm, pdf_height / cm)
 
@@ -201,14 +201,14 @@ def export_all_report_figures(
     Export all report figures to PNG files.
 
     Args:
-        figures: Dict mapping figure name → Plotly Figure
+        figures: Dict mapping figure name -> Plotly Figure
         output_dir: Directory for exported PNGs
         width: Image width in pixels
         height: Image height in pixels
         scale: Scale factor
 
     Returns:
-        Dict mapping figure name → exported PNG path
+        Dict mapping figure name -> exported PNG path
 
     Example:
         >>> figures = {
@@ -241,7 +241,7 @@ def export_all_report_figures(
             # Continue with other figures
             continue
 
-    LOGGER.info("✓ Exported %d/%d figures successfully", len(exported), len(figures))
+    LOGGER.info("[OK] Exported %d/%d figures successfully", len(exported), len(figures))
 
     return exported
 
@@ -264,14 +264,14 @@ def export_figure_variants(
         base_fig: Base Plotly figure
         output_dir: Output directory
         base_name: Base filename (e.g., "overlay_3d")
-        variants: Dict mapping variant_suffix → update_layout kwargs
+        variants: Dict mapping variant_suffix -> update_layout kwargs
             Example: {
                 'err_full': {'scene.xaxis.range': [-10000, 10000]},
                 'err_boost': {'scene.xaxis.range': [-5000, 5000]},
             }
 
     Returns:
-        Dict mapping variant name → exported PNG path
+        Dict mapping variant name -> exported PNG path
 
     Example:
         >>> variants = {
@@ -301,7 +301,7 @@ def export_figure_variants(
             path = export_plotly_figure(variant_fig, output_path)
             exported[variant_name] = path
 
-            LOGGER.debug("  ✓ Variant '%s' exported", variant_name)
+            LOGGER.debug("  [OK] Variant '%s' exported", variant_name)
 
         except Exception as e:
             LOGGER.error("Failed to export variant '%s': %s", suffix, e)

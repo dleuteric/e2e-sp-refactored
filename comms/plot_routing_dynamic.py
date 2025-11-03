@@ -51,7 +51,7 @@ WGS84_E2 = WGS84_F * (2 - WGS84_F)
 
 
 def ecef_to_llh(x: float, y: float, z: float) -> Tuple[float, float, float]:
-    """Converti ECEF (m) → (lat, lon deg, h m). Algoritmo iterativo semplice."""
+    """Converti ECEF (m) -> (lat, lon deg, h m). Algoritmo iterativo semplice."""
     lon = np.degrees(np.arctan2(y, x))
     r = np.hypot(x, y)
     lat = np.arctan2(z, r * (1 - WGS84_E2))
@@ -210,7 +210,7 @@ def plot_dynamic(run_id: str, cfg: dict) -> None:
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     if SAVE_MP4:
         out = OUT_DIR / f"routing_{RUN_ID}.mp4"
-        print(f"[INFO] scrivo MP4 → {out}")
+        print(f"[INFO] scrivo MP4 -> {out}")
         try:
             writer = FFMpegWriter(fps=FPS, bitrate=3000)
             anim.save(out, writer=writer)

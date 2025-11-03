@@ -148,10 +148,10 @@ def load_config(config_path: Path) -> dict:
 #     Normalize metric value using threshold-based scoring.
 #
 #     Maps:
-#     - excellent → 1.0
-#     - good → 0.7
-#     - marginal → 0.4
-#     - worse → 0.0
+#     - excellent -> 1.0
+#     - good -> 0.7
+#     - marginal -> 0.4
+#     - worse -> 0.0
 #
 #     Linear interpolation between thresholds.
 #     """
@@ -504,13 +504,13 @@ def classify_tier_by_gates(raw_values: dict[str, float], config: dict) -> str:
                 gate_tier = 'Low'
 
         gate_tier_scores.append(gate_tier)
-        print(f"    Gate '{crit_name}': {value:.4f} {criterion['unit']} → {gate_tier}")
+        print(f"    Gate '{crit_name}': {value:.4f} {criterion['unit']} -> {gate_tier}")
 
     # CRITICAL: Take MINIMUM tier (worst case bottleneck)
     tier_order = {'Low': 1, 'Mid': 2, 'High': 3}
     final_tier = min(gate_tier_scores, key=lambda t: tier_order[t])
 
-    print(f"    → Final Tier: {final_tier} (min of {gate_tier_scores})")
+    print(f"    -> Final Tier: {final_tier} (min of {gate_tier_scores})")
 
     return final_tier
 
@@ -589,7 +589,7 @@ def save_results(
     with open(output_path, 'w') as f:
         json.dump(results, f, indent=2)
 
-    print(f"✓ Results saved: {output_path}")
+    print(f"[OK] Results saved: {output_path}")
     return output_path
 
 
@@ -623,7 +623,7 @@ def main(config_path: str):
     print(f"Sample normalized scores (first architecture):")
     first_arch_id = config['architectures'][0]['id']
     for crit, score in normalized_scores[first_arch_id].items():
-        print(f"  {crit:<25} → {score:.3f}")
+        print(f"  {crit:<25} -> {score:.3f}")
     print()
 
     # Extract weights from enabled criteria only and normalize

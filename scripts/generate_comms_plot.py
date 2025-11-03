@@ -118,7 +118,7 @@ def main(run_id, target_id):
         scale=2
     )
 
-    print(f"✓ Plot saved: {output_path}")
+    print(f"[OK] Plot saved: {output_path}")
 
 
 if __name__ == "__main__":

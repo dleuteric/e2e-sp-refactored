@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Adapter — triangulation CSVs → Measurement stream for KF (ECEF-first)
+Adapter — triangulation CSVs -> Measurement stream for KF (ECEF-first)
 ===================================================================
 
 Supporta due famiglie di input:
@@ -22,11 +22,11 @@ Output: lista di `Measurement(t, z_km, R_km2, meta)`
 - meta: dict con campi utili (beta_deg, satA, satB, run_id, tgt, ...)
 
 Utility esposte:
-- find_run_id() → str (sceglie l'ultimo run tra exports/gpm e exports/triangulation se non c'è env RUN_ID)
-- find_gpm_files_by_target(run_id) → {tgt: [Paths...]}
-- load_measurements_gpm(paths) → List[Measurement] (concat nativo, ordinato per tempo)
-- find_tri_csvs(run_id) → {tgt: Path} (legacy o single-file GPM)
-- load_measurements(path) → List[Measurement] (autodetect formato)
+- find_run_id() -> str (sceglie l'ultimo run tra exports/gpm e exports/triangulation se non c'è env RUN_ID)
+- find_gpm_files_by_target(run_id) -> {tgt: [Paths...]}
+- load_measurements_gpm(paths) -> List[Measurement] (concat nativo, ordinato per tempo)
+- find_tri_csvs(run_id) -> {tgt: Path} (legacy o single-file GPM)
+- load_measurements(path) -> List[Measurement] (autodetect formato)
 
 Nota: nessuna CLI. Tutto auto-discovery e funzioni callable.
 """
@@ -66,7 +66,7 @@ except Exception:
             R_km2: np.ndarray
             meta: dict = field(default_factory=dict)
 
-# frames utilities (solo se servono per legacy → ECEF)
+# frames utilities (solo se servono per legacy -> ECEF)
 try:
     from estimationandfiltering.frames import icrf_to_ecef  # vectorized version preferred
 except Exception:
@@ -142,7 +142,7 @@ def _read_gpm_csv(path: Path) -> pd.DataFrame:
     # check covariance columns; se mancano, costruisci P gigante per non crashare
     missingP = [c for c in GPM_P_COLS if c not in df.columns]
     if missingP:
-        _log('WARN', f"{path.name}: missing {missingP} → uso big covariance (1e6 km^2) per sicurezza")
+        _log('WARN', f"{path.name}: missing {missingP} -> uso big covariance (1e6 km^2) per sicurezza")
         for c in GPM_P_COLS:
             if c not in df.columns:
                 df[c] = np.nan
@@ -166,7 +166,7 @@ def _read_legacy_csv(path: Path) -> pd.DataFrame:
     # covariance
     missP = [c for c in LEG_SIGMA_COLS if c not in df.columns]
     if missP:
-        _log('WARN', f"{path.name}: missing {missP} → creo Sigma diagonale larga")
+        _log('WARN', f"{path.name}: missing {missP} -> creo Sigma diagonale larga")
         for c in LEG_SIGMA_COLS:
             if c not in df.columns:
                 df[c] = np.nan
@@ -257,7 +257,7 @@ def _deduplicate_exact_time(df: pd.DataFrame) -> pd.DataFrame:
     return df.loc[sorted(set(idxs))].sort_values('time').reset_index(drop=True)
 
 # =============================================================================
-# Row → Measurement (ECEF)
+# Row -> Measurement (ECEF)
 # =============================================================================
 
 def _row_to_measurement_gpm(row: pd.Series) -> Measurement:
@@ -369,8 +369,8 @@ def find_tri_csvs(run_id: str) -> Dict[str, Path]:
 
 def load_measurements(path: Path) -> List[Measurement]:
     """Autodetect formato e costruisci Measurement in **ECEF**.
-    - GPM: ECEF già pronto → passa 1:1.
-    - Legacy: tenta conversione ICRF→ECEF (se frames disponibile); altrimenti fallback grezzo.
+    - GPM: ECEF già pronto -> passa 1:1.
+    - Legacy: tenta conversione ICRF->ECEF (se frames disponibile); altrimenti fallback grezzo.
     """
     head = pd.read_csv(path, nrows=5)
     out: List[Measurement] = []

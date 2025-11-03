@@ -46,8 +46,8 @@ for _k in ("layers","propagation","output"):
 # =========================
 
 def kep2cart(a_km, e, i_deg, raan_deg, argp_deg, M_deg, mu):
-    """Keplerian (a,e,i,Ω,ω,M) → Cartesian (r,v) in ECI [km, km/s].
-    Newton-solve Kepler eq; rotate PQW→ECI. Angles in deg."""
+    """Keplerian (a,e,i,Ω,ω,M) -> Cartesian (r,v) in ECI [km, km/s].
+    Newton-solve Kepler eq; rotate PQW->ECI. Angles in deg."""
     i = np.radians(i_deg); O = np.radians(raan_deg); w = np.radians(argp_deg); M = np.radians(M_deg)
     # Kepler (Newton)
     E = M.copy() if isinstance(M, np.ndarray) else float(M)
@@ -95,9 +95,9 @@ def accel_eci(r_eci, mu, J2=None, Re=None, include_J2=False):
 
 
 def eci_to_ecef(r_eci, v_eci, theta, omega_E):
-    """ECI→ECEF rigid rotation about z (no precession/nutation):
+    """ECI->ECEF rigid rotation about z (no precession/nutation):
        r_ecef = Rz(-θ) r_eci
-       v_ecef = Rz(-θ) v_eci + ω × r_ecef
+       v_ecef = Rz(-θ) v_eci + ω x r_ecef
        Inputs: r_eci [km], v_eci [km/s], theta [rad] = ω_E * t, omega_E [rad/s].
        Returns km, km/s.
     """
@@ -144,7 +144,7 @@ def rkf45(deriv, t0, tf, y0, tol=1e-8, h0=None, args=()):
 
     while t < tf:
         h = min(h, tf - t)
-        f = np.zeros((6, 6), float)  # 6 stages × ny (ny=6)
+        f = np.zeros((6, 6), float)  # 6 stages x ny (ny=6)
         # stages
         for i in range(6):
             ti = t + a[i]*h
@@ -360,7 +360,7 @@ class SpaceSegment:
         with open(man_path, "w", encoding="utf-8") as f:
             json.dump(manifest, f, indent=2)
 
-        print(f"[SSEG] Ephemerides: {len(files)} files → {run_dir} (RUN_ID={run_id})")
+        print(f"[SSEG] Ephemerides: {len(files)} files -> {run_dir} (RUN_ID={run_id})")
         print(f"[SSEG] Manifest   : {man_path}")
         return {"run_id": run_id, "run_dir": str(run_dir), "manifest": str(man_path)}
 

@@ -44,7 +44,7 @@ def main():
         assert size_kb > 30, f"PDF too small ({size_kb:.1f} KB)"
 
         print("\n" + "=" * 70)
-        print("✓✓✓ FULL PIPELINE TEST PASSED ✓✓✓")
+        print("[OK][OK][OK] FULL PIPELINE TEST PASSED [OK][OK][OK]")
         print("=" * 70)
         print(f"\nComplete PDF report generated:")
         print(f"  Path: {pdf_path}")
@@ -59,7 +59,7 @@ def main():
         return 0
 
     except Exception as e:
-        print(f"\n✗ TEST FAILED: {e}")
+        print(f"\n[FAIL] TEST FAILED: {e}")
         import traceback
         traceback.print_exc()
         return 1

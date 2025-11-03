@@ -51,9 +51,9 @@ def main():
 
     try:
         data = load_all_data(RUN_ID, TARGET_ID, include_comms=True)
-        print(f"✓ Data loaded: {len(data.truth)} truth samples")
+        print(f"[OK] Data loaded: {len(data.truth)} truth samples")
     except Exception as e:
-        print(f"✗ ERROR loading data: {e}")
+        print(f"[FAIL] ERROR loading data: {e}")
         return 1
 
     # ========================================================================
@@ -64,9 +64,9 @@ def main():
 
     try:
         metrics = compute_all_metrics(data, TARGET_ID)
-        print(f"✓ Metrics computed: {len(metrics.alignment.kf_vs_truth)} aligned samples")
+        print(f"[OK] Metrics computed: {len(metrics.alignment.kf_vs_truth)} aligned samples")
     except Exception as e:
-        print(f"✗ ERROR computing metrics: {e}")
+        print(f"[FAIL] ERROR computing metrics: {e}")
         return 1
 
     # ========================================================================
@@ -84,7 +84,7 @@ def main():
 
     try:
         kpis = extract_all_kpis(kpi_context)
-        print(f"✓ KPIs extracted: {len(kpis)}")
+        print(f"[OK] KPIs extracted: {len(kpis)}")
 
         for kpi_name, kpi_value in kpis.items():
             if np.isfinite(kpi_value):
@@ -93,7 +93,7 @@ def main():
                 print(f"  • {kpi_name}: N/A")
 
     except Exception as e:
-        print(f"✗ ERROR extracting KPIs: {e}")
+        print(f"[FAIL] ERROR extracting KPIs: {e}")
         import traceback
         traceback.print_exc()
         return 1
@@ -138,17 +138,17 @@ def main():
 
             flowables = section.render(context)
             story.extend(flowables)
-            print(f"  ✓ Rendered: {section.config.name}")
+            print(f"  [OK] Rendered: {section.config.name}")
 
         # Build PDF
         page_template = create_page_template_function(RUN_ID, TARGET_ID)
         doc.build(story, onFirstPage=page_template, onLaterPages=page_template)
 
         size_kb = output_path.stat().st_size / 1024
-        print(f"✓ PDF built: {size_kb:.1f} KB")
+        print(f"[OK] PDF built: {size_kb:.1f} KB")
 
     except Exception as e:
-        print(f"✗ ERROR building PDF: {e}")
+        print(f"[FAIL] ERROR building PDF: {e}")
         import traceback
         traceback.print_exc()
         return 1
@@ -160,7 +160,7 @@ def main():
     print("-" * 70)
 
     if not output_path.exists():
-        print("✗ PDF not created!")
+        print("[FAIL] PDF not created!")
         return 1
 
     size_kb = output_path.stat().st_size / 1024
@@ -168,13 +168,13 @@ def main():
     if size_kb < 20:
         print(f"⚠ PDF seems small ({size_kb:.1f} KB)")
     else:
-        print(f"✓ PDF validated: {size_kb:.1f} KB")
+        print(f"[OK] PDF validated: {size_kb:.1f} KB")
 
     # ========================================================================
     # SUCCESS
     # ========================================================================
     print("\n" + "=" * 70)
-    print("✓✓✓ TEST PASSED ✓✓✓")
+    print("[OK][OK][OK] TEST PASSED [OK][OK][OK]")
     print("=" * 70)
     print("\nExecutive dashboard with real KPIs validated!")
     print(f"  • {len(kpis)} KPIs extracted and displayed")

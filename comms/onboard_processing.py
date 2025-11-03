@@ -9,8 +9,8 @@ Two drivers:
   • TRACK-driven: iterate the filter track and asof-merge to GPM to get sats per epoch
 
 Latency budget (on-board):
-  t_meas (from GPM epoch_utc) ──> [sat → leader via ISL] ──> proc_onboard ──>
-  [leader → best GS]  → publish on ground
+  t_meas (from GPM epoch_utc) ──> [sat -> leader via ISL] ──> proc_onboard ──>
+  [leader -> best GS]  -> publish on ground
 
 Exported ages:
   • age_transport_ms = (t_ground - t_meas) * 1e3   # includes ISL, proc_onboard, downlink
@@ -324,7 +324,7 @@ class OnboardFusion:
         out_df.sort_values(by="epoch_utc", inplace=True, kind="mergesort")
         out_df.reset_index(drop=True, inplace=True)
         out_df.to_csv(out_csv, index=False)
-        print(f"[OK] On-board triangulation CSV → {out_csv}")
+        print(f"[OK] On-board triangulation CSV -> {out_csv}")
 
     # ---------------- TRACK-driven ----------------
     def process_track(self, track_csv: Path, gpm_csv: Path, out_csv: Path) -> None:
@@ -412,7 +412,7 @@ class OnboardFusion:
         out_df.sort_values(by="epoch_utc", inplace=True, kind="mergesort")
         out_df.reset_index(drop=True, inplace=True)
         out_df.to_csv(out_csv, index=False)
-        print(f"[OK] On-board TRACK-age CSV → {out_csv}")
+        print(f"[OK] On-board TRACK-age CSV -> {out_csv}")
 
 
 # --------------------------------------------------------------------------------------

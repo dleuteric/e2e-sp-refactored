@@ -384,7 +384,7 @@ def plot_dynamic(run_id: str, cfg: dict) -> None:
                 if pth is not None and t_arr < best_t:
                     best_t = t_arr; best_path = pth
             traces = _frame_traces(t, best_path)
-            # patch last trace → real source
+            # patch last trace -> real source
             x_s,y_s,z_s = net._pos_fn(src_id, t)
             traces[-1].x = [x_s]; traces[-1].y = [y_s]; traces[-1].z = [z_s]
             traces[-1].name = f'Source: {src_id}'
@@ -424,12 +424,12 @@ def plot_dynamic(run_id: str, cfg: dict) -> None:
             OUT_DIR.mkdir(parents=True, exist_ok=True)
             OUT_HTML = OUT_DIR / f"routing_target2_{RUN_ID}.html"
             fig_pl.write_html(str(OUT_HTML), include_plotlyjs='cdn', auto_open=False)
-            print(f"[OK] HTML interattivo → {OUT_HTML}")
+            print(f"[OK] HTML interattivo -> {OUT_HTML}")
 
     # --- MP4 save (optional) ---
     if SAVE_MP4:
         out = OUT_DIR / f"routing_target_{RUN_ID}.mp4"
-        print(f"[INFO] writing MP4 → {out}")
+        print(f"[INFO] writing MP4 -> {out}")
         try:
             writer = FFMpegWriter(fps=FPS, bitrate=BITRATE)
             anim.save(out, writer=writer)

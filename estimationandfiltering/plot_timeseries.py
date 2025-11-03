@@ -132,7 +132,7 @@ def build_timeseries(truth: pd.DataFrame, kf: pd.DataFrame, gpm: Optional[pd.Dat
     base["err_kf_z_km"]   = base["z_kf_km"] - base["z_truth_km"]
     base["err_kf_norm_km"]= np.sqrt(base["err_kf_x_km"]**2 + base["err_kf_y_km"]**2 + base["err_kf_z_km"]**2)
 
-    # 3) opzionale: GPM → riallinea anche lui ai tempi KF
+    # 3) opzionale: GPM -> riallinea anche lui ai tempi KF
     if gpm is not None and not gpm.empty:
         gg = gpm.copy()
         gg.index = pd.DatetimeIndex(gg.index).sort_values()
@@ -229,7 +229,7 @@ def iter_gpm_files_for_target(run_gpm: str, target: str):
             "y_gpm_km": pd.to_numeric(df.loc[mask, "y_est_km"], errors="coerce"),
             "z_gpm_km": pd.to_numeric(df.loc[mask, "z_est_km"], errors="coerce"),
         }, index=pd.DatetimeIndex(df.loc[mask, "t"]))
-        # diag(P) se disponibile → sigma
+        # diag(P) se disponibile -> sigma
         if {"P_xx","P_yy","P_zz"}.issubset(df.columns):
             series["gpm_sigma_x_km"] = np.sqrt(pd.to_numeric(df.loc[mask, "P_xx"], errors="coerce")).values
             series["gpm_sigma_y_km"] = np.sqrt(pd.to_numeric(df.loc[mask, "P_yy"], errors="coerce")).values
@@ -355,7 +355,7 @@ def main():
     fig = make_figure(ts, tgt, run_tracks, title_prefix or None, annotation or None)
     plotly_plot(fig, filename=str(out_html), auto_open=False, include_plotlyjs="cdn")
 
-    print(f"[OK] HTML → {out_html}")
+    print(f"[OK] HTML -> {out_html}")
     if gpm_name:
         print(f"[INFO] GPM best file: {gpm_name}")
 

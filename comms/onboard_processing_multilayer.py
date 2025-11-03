@@ -3,7 +3,7 @@ Onboard fusion for multilayer architecture.
 Leader selection constrained to transport layer.
 Responsabilità:
 
-Routing tracking → transport (nearest)
+Routing tracking -> transport (nearest)
 Leader selection solo da transport layer
 Processing budget applicato sul transport
 Export con breakdown dettagliato
@@ -32,7 +32,7 @@ class OnboardFusionMultilayer:
         """
         For each track epoch:
         1. Get K tracking sats from GPM
-        2. Route each tracking sat → nearest transport sat
+        2. Route each tracking sat -> nearest transport sat
         3. Transport sat waits for all K measurements
         4. Processing on transport (budget_ms)
         5. Downlink to best ground

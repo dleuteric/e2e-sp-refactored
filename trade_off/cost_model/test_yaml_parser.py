@@ -49,30 +49,30 @@ def test_parser():
                 total_sats = sum(c['n_satellites'] for c in result['components'])
 
                 if total_sats == expected_n_sats:
-                    print(f"✓ PASS: {label}")
-                    print(f"  → Mixed: {len(result['components'])} components, {total_sats} satellites")
+                    print(f"[OK] PASS: {label}")
+                    print(f"  -> Mixed: {len(result['components'])} components, {total_sats} satellites")
                     passed += 1
                 else:
-                    print(f"✗ FAIL: {label}")
-                    print(f"  → Expected {expected_n_sats} sats, got {total_sats}")
+                    print(f"[FAIL] FAIL: {label}")
+                    print(f"  -> Expected {expected_n_sats} sats, got {total_sats}")
                     failed += 1
 
             else:
                 # Single orbit
                 if (result['orbit_type'] == expected_orbit and
                     result['n_satellites'] == expected_n_sats):
-                    print(f"✓ PASS: {label}")
-                    print(f"  → {result['n_satellites']} × {result['orbit_type']}")
+                    print(f"[OK] PASS: {label}")
+                    print(f"  -> {result['n_satellites']} x {result['orbit_type']}")
                     passed += 1
                 else:
-                    print(f"✗ FAIL: {label}")
-                    print(f"  → Expected: {expected_n_sats} × {expected_orbit}")
-                    print(f"  → Got: {result['n_satellites']} × {result['orbit_type']}")
+                    print(f"[FAIL] FAIL: {label}")
+                    print(f"  -> Expected: {expected_n_sats} x {expected_orbit}")
+                    print(f"  -> Got: {result['n_satellites']} x {result['orbit_type']}")
                     failed += 1
 
         except Exception as e:
-            print(f"✗ FAIL: {label}")
-            print(f"  → Exception: {e}")
+            print(f"[FAIL] FAIL: {label}")
+            print(f"  -> Exception: {e}")
             failed += 1
 
     print()
@@ -103,17 +103,17 @@ def test_parser():
 
             if result == expected_key:
                 alt_str = f"@{altitude}km" if altitude else "(default)"
-                print(f"✓ PASS: {orbit_type} {alt_str} → {result}")
+                print(f"[OK] PASS: {orbit_type} {alt_str} -> {result}")
                 map_passed += 1
             else:
-                print(f"✗ FAIL: {orbit_type} @{altitude} km")
-                print(f"  → Expected: {expected_key}")
-                print(f"  → Got: {result}")
+                print(f"[FAIL] FAIL: {orbit_type} @{altitude} km")
+                print(f"  -> Expected: {expected_key}")
+                print(f"  -> Got: {result}")
                 map_failed += 1
 
         except Exception as e:
-            print(f"✗ FAIL: {orbit_type} @{altitude} km")
-            print(f"  → Exception: {e}")
+            print(f"[FAIL] FAIL: {orbit_type} @{altitude} km")
+            print(f"  -> Exception: {e}")
             map_failed += 1
 
     print()
@@ -125,10 +125,10 @@ def test_parser():
     print()
 
     if failed == 0 and map_failed == 0:
-        print("🎉 ALL TESTS PASSED!")
+        print("[OK] ALL TESTS PASSED!")
         return 0
     else:
-        print(f"❌ {failed + map_failed} TESTS FAILED")
+        print(f"[FAIL] {failed + map_failed} TESTS FAILED")
         return 1
 
 

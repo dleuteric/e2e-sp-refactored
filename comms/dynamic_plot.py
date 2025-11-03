@@ -355,7 +355,7 @@ def plot_dynamic_enhanced(run_id: str, cfg: dict) -> None:
     net, mgr, samples = build_samples(run_id, cfg, tgt_f)
 
     if not samples:
-        print("❌ No samples to plot")
+        print("[FAIL] No samples to plot")
         return
 
     vis_times = _merge_los_by_sat(run_id, cfg)
@@ -370,7 +370,7 @@ def plot_dynamic_enhanced(run_id: str, cfg: dict) -> None:
     target_trail = []
 
     if not _PLOTLY_OK:
-        print("❌ Plotly not available - cannot create enhanced visualization")
+        print("[FAIL] Plotly not available - cannot create enhanced visualization")
         return
 
     print("🎨 Building interactive frames...")
@@ -688,8 +688,8 @@ def plot_dynamic_enhanced(run_id: str, cfg: dict) -> None:
         auto_open=False
     )
 
-    print(f"✅ Enhanced visualization saved → {out_path}")
-    print("🎉 Open in browser for best experience!")
+    print(f"[OK] Enhanced visualization saved -> {out_path}")
+    print("[OK] Open in browser for best experience!")
 
 
 # Keep existing helper functions...

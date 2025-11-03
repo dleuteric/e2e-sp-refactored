@@ -291,7 +291,7 @@ def export_interactive_plot_html(manager: DataAgeManager, out_dir: Path, run_id:
     suffix = run_id if run_id else dt.datetime.utcnow().strftime('%Y%m%dT%H%M%SZ')
     out_html = out_dir / f"data_age_timeseries_{suffix}.html"
     fig.write_html(str(out_html), include_plotlyjs='cdn', auto_open=False)
-    print(f"[OK] HTML interattivo → {out_html}")
+    print(f"[OK] HTML interattivo -> {out_html}")
     return out_html
 
 
@@ -418,7 +418,7 @@ def export_rcu_csv(manager: DataAgeManager, los_events: List[MeasureEvent], out_
     df = compute_routing_utilization(manager, los_events, sat_ids=sat_ids)
     _ensure_dir(out_csv.parent)
     df.to_csv(out_csv, index=False)
-    print(f"[OK] RCU CSV → {out_csv}")
+    print(f"[OK] RCU CSV -> {out_csv}")
     return out_csv
 
 
@@ -467,5 +467,5 @@ def export_rcu_bars_html(manager: DataAgeManager, los_events: List[MeasureEvent]
     suffix = run_id if run_id else dt.datetime.utcnow().strftime('%Y%m%dT%H%M%SZ')
     out_html = out_dir / f"rcu_stacked_{suffix}.html"
     fig.write_html(str(out_html), include_plotlyjs='cdn', auto_open=False)
-    print(f"[OK] RCU HTML → {out_html}")
+    print(f"[OK] RCU HTML -> {out_html}")
     return out_html

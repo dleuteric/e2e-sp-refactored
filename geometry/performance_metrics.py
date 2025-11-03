@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Performance Metrics — RMSE per asse (ECEF, km) per il flow GPM→KF
+Performance Metrics — RMSE per asse (ECEF, km) per il flow GPM->KF
 
 Cosa fa:
 - Seleziona i run-id: TRACKS come riferimento; GPM/TRUTH sullo stesso run quando possibile.

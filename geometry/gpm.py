@@ -707,7 +707,7 @@ def main():
     produced = 0
     produced_rows = 0
 
-    print(f"[GPM] Sats disponibili: {len(sats)} → {total_pairs} coppie da testare")
+    print(f"[GPM] Sats disponibili: {len(sats)} -> {total_pairs} coppie da testare")
 
     for (satA, satB) in pair_list:
         try:

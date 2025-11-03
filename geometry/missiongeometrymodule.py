@@ -305,7 +305,7 @@ def process_pair(sat_csv: Path, tgt_csv: Path, los_out_dir: Path, run_id: str, w
             log.info("Joined timestep: median=%.3fs | min=%.3fs | p10=%.3fs", float(_dt_series.median()), float(_dt_series.min()), float(_dt_series.quantile(0.10)))
 
     if df.empty:
-        log.warning("No overlapping epochs for %s → %s; skipping.", sat_name, tgt_name)
+        log.warning("No overlapping epochs for %s -> %s; skipping.", sat_name, tgt_name)
         return
 
     r_s_m = df[["x_m_s", "y_m_s", "z_m_s"]].to_numpy(float)
@@ -333,7 +333,7 @@ def process_pair(sat_csv: Path, tgt_csv: Path, los_out_dir: Path, run_id: str, w
 
     out_visible = out[out["visible"] == 1].copy()
     if out_visible.empty:
-        log.info("No visible epochs for %s → %s; skipping export.", sat_name, tgt_name)
+        log.info("No visible epochs for %s -> %s; skipping export.", sat_name, tgt_name)
         return
 
     los_out_dir.mkdir(parents=True, exist_ok=True)
@@ -405,7 +405,7 @@ def main():
             try:
                 process_pair(sat_csv, tgt_csv, run_dir, RUN_ID, WRITE_ACCESS)
             except Exception as e:
-                log.error("Error processing %s → %s: %s", sat_csv.stem, tgt_csv.stem, e)
+                log.error("Error processing %s -> %s: %s", sat_csv.stem, tgt_csv.stem, e)
 
     if not sat_csvs:
         log.error("No satellite CSVs found under %s (pattern=%s)", sat_dir, SAT_PATTERN)

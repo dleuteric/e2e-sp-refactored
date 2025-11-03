@@ -3,7 +3,7 @@
 Table rendering utilities for PDF reports.
 
 Handles:
-- DataFrame → ReportLab Table conversion
+- DataFrame -> ReportLab Table conversion
 - Auto-sizing columns
 - Styled headers/rows
 - Numeric formatting
@@ -165,7 +165,7 @@ def create_config_table(
         max_width: float = CONTENT_WIDTH,
 ) -> Table:
     """
-    Create 2-column configuration table (key → value).
+    Create 2-column configuration table (key -> value).
 
     Args:
         config_dict: Dict or OrderedDict of config items

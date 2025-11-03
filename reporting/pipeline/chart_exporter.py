@@ -105,7 +105,7 @@ class ChartExporter:
             fig = build_contact_analysis_figure(mgm, self.target_id)
             if fig is not None:
                 self.figures['contact_analysis'] = fig
-                LOGGER.info("    ✓ Contact analysis figure")
+                LOGGER.info("    [OK] Contact analysis figure")
         except Exception as e:
             LOGGER.warning("    Failed contact analysis: %s", e)
 
@@ -120,7 +120,7 @@ class ChartExporter:
             fig = build_geometry_timeline_figure(kf, gpm, self.target_id)
             if fig is not None:
                 self.figures['geometry_timeline'] = fig
-                LOGGER.info("    ✓ Geometry timeline figure")
+                LOGGER.info("    [OK] Geometry timeline figure")
         except Exception as e:
             LOGGER.warning("    Failed geometry timeline: %s", e)
 
@@ -145,7 +145,7 @@ class ChartExporter:
 
             if fig is not None:
                 self.figures['errors_timeseries'] = fig
-                LOGGER.info("    ✓ Timeseries errors figure")
+                LOGGER.info("    [OK] Timeseries errors figure")
         except Exception as e:
             LOGGER.warning("    Failed timeseries errors: %s", e)
 
@@ -172,7 +172,7 @@ class ChartExporter:
 
             if fig is not None:
                 self.figures['overlay_3d'] = fig
-                LOGGER.info("    ✓ 3D overlay figure")
+                LOGGER.info("    [OK] 3D overlay figure")
         except Exception as e:
             LOGGER.warning("    Failed 3D overlay: %s", e)
 
@@ -202,7 +202,7 @@ class ChartExporter:
                 fig_2d = build_groundtracks_figure(sats_dir, tgt_dir)
                 fig_2d.update_layout(title=f"Ground Tracks — {self.run_id}")
                 self.figures['constellation_2d_groundtrack'] = fig_2d
-                LOGGER.info("    ✓ 2D ground track")
+                LOGGER.info("    [OK] 2D ground track")
             except Exception as e:
                 LOGGER.warning("    Failed 2D: %s", e)
 
@@ -212,7 +212,7 @@ class ChartExporter:
                 fig_3d = build_orbits3d_figure(sats_dir, tgt_dir)
                 fig_3d.update_layout(title=f"3D Constellation View — {self.run_id}")
                 self.figures['constellation_3d_orbits'] = fig_3d
-                LOGGER.info("    ✓ 3D orbits")
+                LOGGER.info("    [OK] 3D orbits")
             except Exception as e:
                 LOGGER.warning("    Failed 3D: %s", e)
 

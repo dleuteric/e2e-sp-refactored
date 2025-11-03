@@ -63,7 +63,7 @@ class SectionRenderer:
                 flowables = section.render(context)
                 story.extend(flowables)
 
-                LOGGER.info("    ✓ %s (%d flowables)",
+                LOGGER.info("    [OK] %s (%d flowables)",
                             section.config.name, len(flowables))
 
                 # Page break after section (if configured)
@@ -71,7 +71,7 @@ class SectionRenderer:
                     story.append(PageBreak())
 
             except Exception as e:
-                LOGGER.error("    ✗ Failed to render %s: %s",
+                LOGGER.error("    [FAIL] Failed to render %s: %s",
                              section.config.name, e, exc_info=True)
                 # Continue with other sections
                 continue

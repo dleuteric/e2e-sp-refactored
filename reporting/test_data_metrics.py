@@ -33,7 +33,7 @@ def main():
         data = load_all_data(RUN_ID, TARGET_ID, include_comms=True)
         print("\n" + summarize_data_bundle(data))
     except Exception as e:
-        print(f"✗ ERROR loading data: {e}")
+        print(f"[FAIL] ERROR loading data: {e}")
         import traceback
         traceback.print_exc()
         return 1
@@ -48,7 +48,7 @@ def main():
         metrics = compute_all_metrics(data, TARGET_ID)
         print("\n" + summarize_metrics_bundle(metrics))
     except Exception as e:
-        print(f"✗ ERROR computing metrics: {e}")
+        print(f"[FAIL] ERROR computing metrics: {e}")
         import traceback
         traceback.print_exc()
         return 1
@@ -57,7 +57,7 @@ def main():
     # SUCCESS
     # ========================================================================
     print("\n" + "=" * 70)
-    print("✓✓✓ TEST PASSED ✓✓✓")
+    print("[OK][OK][OK] TEST PASSED [OK][OK][OK]")
     print("=" * 70)
     print("\nData & metrics pipeline validated!")
     print(f"  • Data loaded successfully")

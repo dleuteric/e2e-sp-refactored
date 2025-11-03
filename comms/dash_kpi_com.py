@@ -185,7 +185,7 @@ def load_measurement_ages() -> Tuple[Optional[pd.DataFrame], Optional[pd.DataFra
             onboard_df = pd.read_csv(ONBOARD_CSV)
             # Convert epoch_utc to seconds
             onboard_df['epoch_s'] = pd.to_datetime(onboard_df['epoch_utc']).astype('int64') / 1e9
-            print(f"✅ Loaded onboard processing data: {len(onboard_df)} samples")
+            print(f"[OK] Loaded onboard processing data: {len(onboard_df)} samples")
         except Exception as e:
             print(f"⚠️ Could not load onboard CSV: {e}")
 
@@ -194,7 +194,7 @@ def load_measurement_ages() -> Tuple[Optional[pd.DataFrame], Optional[pd.DataFra
             ground_df = pd.read_csv(GROUND_CSV)
             # Convert epoch_utc to seconds
             ground_df['epoch_s'] = pd.to_datetime(ground_df['epoch_utc']).astype('int64') / 1e9
-            print(f"✅ Loaded ground processing data: {len(ground_df)} samples")
+            print(f"[OK] Loaded ground processing data: {len(ground_df)} samples")
         except Exception as e:
             print(f"⚠️ Could not load ground CSV: {e}")
 
@@ -1000,7 +1000,7 @@ def plot_dynamic(run_id: str, cfg: dict) -> None:
                 }
             )
 
-            print(f"✅ Enhanced visualization saved → {OUT_HTML}")
+            print(f"[OK] Enhanced visualization saved -> {OUT_HTML}")
             print(f"🎯 Open in browser for best experience!")
             print(f"📊 Total frames: {len(plotly_frames)}")
             print(f"🛰️ Satellites tracked: {len(sat_ids)}")

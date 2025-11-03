@@ -147,14 +147,14 @@ def main():
     # 2) MGM
     run([sys.executable, "geometry/missiongeometrymodule.py", "--run-id", run_id], env)
     los_files = ensure_any(f"{REPO}/exports/geometry/los/{run_id}/*.csv")
-    print(f"[OK] MGM → {len(los_files)} LOS")
+    print(f"[OK] MGM -> {len(los_files)} LOS")
 
     # 3) GPM (auto-infer target, niente env TARGET_ID)
     env_gpm = env.copy()
     env_gpm.pop("TARGET_ID", None)
     run([sys.executable, "geometry/gpm.py", "--sigma-urad", "300"], env_gpm)
     gpm_files = ensure_any(f"{REPO}/exports/gpm/{run_id}/*.csv")
-    print(f"[OK] GPM → {len(gpm_files)} CSV")
+    print(f"[OK] GPM -> {len(gpm_files)} CSV")
 
     # 4) KF
     tgt = infer_target_from_los(run_id)

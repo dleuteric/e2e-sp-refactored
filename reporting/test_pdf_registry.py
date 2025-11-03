@@ -33,11 +33,11 @@ def test_registry_populated():
 
     assert len(SECTION_REGISTRY) > 0, "No sections registered!"
 
-    print(f"✓ Sections registered: {len(SECTION_REGISTRY)}")
+    print(f"[OK] Sections registered: {len(SECTION_REGISTRY)}")
 
     all_sections = list(SECTION_REGISTRY._sections.values())
     for section in sorted(all_sections, key=lambda s: s.config.order):
-        status = "✓ ENABLED" if section.config.enabled else "✗ DISABLED"
+        status = "[OK] ENABLED" if section.config.enabled else "[FAIL] DISABLED"
         print(f"  [{section.config.order:2d}] {section.config.name:20s} {status}")
 
 
@@ -53,7 +53,7 @@ def test_sections_ordered():
     orders = [s.config.order for s in enabled]
     assert orders == sorted(orders), "Sections not properly ordered!"
 
-    print(f"✓ {len(enabled)} sections in correct order")
+    print(f"[OK] {len(enabled)} sections in correct order")
     for section in enabled:
         print(f"  • {section.config.name} (order={section.config.order})")
 
@@ -86,10 +86,10 @@ def test_render_sections():
         assert len(flowables) > 0, f"Section {section.config.name} returned empty!"
 
         story.extend(flowables)
-        print(f"    → ✓ {len(flowables)} flowables")
+        print(f"    -> [OK] {len(flowables)} flowables")
 
     assert len(story) > 0, "Story is empty!"
-    print(f"\n✓ Story complete: {len(story)} flowables")
+    print(f"\n[OK] Story complete: {len(story)} flowables")
 
 
 def test_pdf_generation():
@@ -138,7 +138,7 @@ def test_pdf_generation():
         onLaterPages=page_template_fn
     )
 
-    print(f"  ✓ PDF created: {output_path}")
+    print(f"  [OK] PDF created: {output_path}")
 
 
 def test_pdf_validation():
@@ -155,8 +155,8 @@ def test_pdf_validation():
 
     assert size_bytes > 1000, "PDF too small (< 1 KB)"
 
-    print(f"✓ PDF exists: {output_path.name}")
-    print(f"✓ File size: {size_kb:.1f} KB")
+    print(f"[OK] PDF exists: {output_path.name}")
+    print(f"[OK] File size: {size_kb:.1f} KB")
     print(f"\nOpen: {output_path.absolute()}")
 
 

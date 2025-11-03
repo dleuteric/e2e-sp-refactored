@@ -631,7 +631,7 @@ def plot_tier_scatter(data, config, ax):
 #         d['CreationDate'] = datetime.now()
 #
 #     print("-" * 60)
-#     print(f"✓ Visualizations saved: {pdf_path}")
+#     print(f"[OK] Visualizations saved: {pdf_path}")
 #     return pdf_path
 
 def generate_pdf(json_path, config_path=None):
@@ -744,7 +744,7 @@ def generate_pdf(json_path, config_path=None):
             d['CreationDate'] = datetime.now()
 
         print("=" * 60)
-        print(f"✓ PDF generated successfully: {pdf_path}")
+        print(f"[OK] PDF generated successfully: {pdf_path}")
         print(f"  Pages: 5")
         print(f"  Size: {pdf_path.stat().st_size / 1024:.1f} KB")
         print("=" * 60)

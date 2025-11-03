@@ -206,7 +206,7 @@ class ArchitectureConfigSection(Section):
                 # Build layer description
                 layer_text = (
                     f"<b>{name}</b> ({layer_type}): "
-                    f"{planes} planes × {sats_per_plane} satellites, "
+                    f"{planes} planes x {sats_per_plane} satellites, "
                     f"altitude {altitude} km, "
                     f"inclination {inclination}°"
                 )

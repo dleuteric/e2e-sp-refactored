@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-provenance.py — Data provenance fino alla TRIANGOLAZIONE (MGM→GPM)
+provenance.py — Data provenance fino alla TRIANGOLAZIONE (MGM->GPM)
 
-Ora supporta anche modalità *TRACK-driven* (GPM→Track) con budget di processing
+Ora supporta anche modalità *TRACK-driven* (GPM->Track) con budget di processing
 a terra TRI_PROC_MS e FILTER_PROC_MS.
 
 Versione *config-only* (no CLI) con **logica di sampling identica** a
@@ -222,7 +222,7 @@ def load_per_sat_indices(run_id: str, data_age_root: Optional[Path] = None) -> D
 
 
 # --------------------------------------------------------------------------------------
-# GPM → Triangulation-only provenance
+# GPM -> Triangulation-only provenance
 # --------------------------------------------------------------------------------------
 
 def _pick_gpm_csv(run_id: str, target: Optional[str]) -> Optional[Path]:
@@ -341,7 +341,7 @@ def build_gpm_provenance(
     tri_only_name = f"triangulation_only_{run_id}{('__' + target) if target else ''}.csv"
     tri_only_path = out_dir / tri_only_name
     out.to_csv(tri_only_path, index=False)
-    print(f"[OK] Triangulation-only CSV → {tri_only_path}")
+    print(f"[OK] Triangulation-only CSV -> {tri_only_path}")
     return out
 
 
@@ -436,7 +436,7 @@ def build_track_provenance(
     for i in range(0, len(df_tr), stride):
         t_gpm_s = gpm_time_for_row_s[i]
         if not np.isfinite(t_gpm_s):
-            # nessun match GPM → salta riga
+            # nessun match GPM -> salta riga
             continue
 
         sats = [s.strip() for s in sats_for_row[i].split(",") if s.strip()]
@@ -522,7 +522,7 @@ def build_track_provenance(
     track_name = track_csv.stem.replace(".csv", "")
     out_path = out_dir / f"{track_csv.stem}__with_age.csv"
     out.to_csv(out_path, index=False)
-    print(f"[OK] Track con measurement_age_ms → {out_path}")
+    print(f"[OK] Track con measurement_age_ms -> {out_path}")
     return out
 
 

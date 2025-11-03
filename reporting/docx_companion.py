@@ -141,7 +141,7 @@ class DOCXCompanion:
         # Save document
         self.doc.save(str(self.output_path))
 
-        LOGGER.info("✓ DOCX companion saved: %s", self.output_path)
+        LOGGER.info("[OK] DOCX companion saved: %s", self.output_path)
         return self.output_path
 
     def _add_header(self):
@@ -336,16 +336,16 @@ if __name__ == "__main__":
             }
         )
 
-        print(f"✓ Test DOCX generated: {docx_path}")
+        print(f"[OK] Test DOCX generated: {docx_path}")
         print(f"  Open with: open {docx_path}")
         sys.exit(0)
 
     except ImportError as e:
-        print(f"✗ Missing dependency: {e}")
+        print(f"[FAIL] Missing dependency: {e}")
         print("  Install with: pip install python-docx")
         sys.exit(1)
     except Exception as e:
-        print(f"✗ Error: {e}")
+        print(f"[FAIL] Error: {e}")
         import traceback
 
         traceback.print_exc()

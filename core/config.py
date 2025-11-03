@@ -39,7 +39,7 @@ _DEFAULT_CONFIG_PATH = Path(__file__).resolve().parents[1] / "config" / "default
 _ENV_PREFIX = "TP__"
 _CONFIG_PATH_ENV_VARS: tuple[str, ...] = ("TP_CONFIG", "TP_CONFIG_FILE", "PIPELINE_CONFIG")
 
-# Legacy environment aliases → dotted config paths
+# Legacy environment aliases -> dotted config paths
 _ENV_ALIASES: dict[str, str] = {
     "GPM_SIGMA_URAD": "geometry.gpm.sigma_urad",
     "GPM_SEED": "geometry.gpm.seed",

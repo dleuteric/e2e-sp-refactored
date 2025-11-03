@@ -448,7 +448,7 @@ def make_html(
 
     html_out.parent.mkdir(parents=True, exist_ok=True)
     fig.write_html(str(html_out), include_plotlyjs='cdn', auto_open=False)
-    print(f"[OK] HTML dashboard → {html_out}")
+    print(f"[OK] HTML dashboard -> {html_out}")
 
 
 # --------------------------------------------------------------------------------------

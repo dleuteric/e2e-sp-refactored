@@ -267,7 +267,7 @@ def _format_orbit_layers(layers: Sequence[Mapping[str, Any]]) -> str:
         planes = layer.get("num_planes")
         sats = layer.get("sats_per_plane")
         if planes is not None and sats is not None:
-            details.append(f"{planes} planes × {sats} sats")
+            details.append(f"{planes} planes x {sats} sats")
         walker = layer.get("walker_factor")
         if walker is not None:
             details.append(f"walker={walker}")
@@ -1698,7 +1698,7 @@ def generate_report(run_id: str,
 
     metrics_paths = _write_metrics_csv(metrics, f"{target_id}_{base_tag}_metrics", output_dir)
 
-    LOGGER.info("Report generated → %s", output_dir)
+    LOGGER.info("Report generated -> %s", output_dir)
     return {
         "figures": {art.name: {
             "html": str(art.html_path),

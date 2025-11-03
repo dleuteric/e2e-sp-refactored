@@ -4,7 +4,7 @@ Tracks which layer generated measure vs which layer delivers to ground.
 
 Responsabilità:
 
-Tracking misure multi-hop (sensing → transport → ground)
+Tracking misure multi-hop (sensing -> transport -> ground)
 Breakdown latency per componente
 Export per-layer statistics
 """

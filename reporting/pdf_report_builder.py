@@ -182,7 +182,7 @@ class PDFReportBuilder:
             # Success
             size_kb = self.output_path.stat().st_size / 1024
             LOGGER.info("\n" + "=" * 70)
-            LOGGER.info("✓ REPORT GENERATION COMPLETE")
+            LOGGER.info("[OK] REPORT GENERATION COMPLETE")
             LOGGER.info("=" * 70)
             LOGGER.info("  Output: %s", self.output_path)
             LOGGER.info("  Size:   %.1f KB", size_kb)
@@ -449,11 +449,11 @@ def main():
                 cfg={}
             )
 
-        print(f"\n✓ Report generated: {pdf_path}")
+        print(f"\n[OK] Report generated: {pdf_path}")
         return 0
 
     except Exception as e:
-        print(f"\n✗ Error: {e}")
+        print(f"\n[FAIL] Error: {e}")
         return 1
 
 

@@ -78,7 +78,7 @@ def resolve_run_id(preferred=None, search_roots=None, allow_new=False):
 
     Priority:
     1. ``preferred`` argument (if truthy)
-    2. Environment variables (``ORCH_RUN_ID`` → ``RUN_ID`` → ``EZSMAD_RUN_ID``)
+    2. Environment variables (``ORCH_RUN_ID`` -> ``RUN_ID`` -> ``EZSMAD_RUN_ID``)
     3. Latest run folder found under any of ``search_roots``
     4. Fresh timestamp if ``allow_new`` is True
     """

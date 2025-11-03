@@ -3,9 +3,9 @@
 Minimal orchestrator (v0) — centralized outputs + manifest
 
 What this does, in order:
-  1) Run quick_pipeline.py  → ephemerides, align, MGM (LOS), GPM, KF tracks
-  2) Run geometry/performance_metrics.py → write RMSE metrics CSV
-  3) Run estimationandfiltering/plot_timeseries.py → write HTML plot
+  1) Run quick_pipeline.py  -> ephemerides, align, MGM (LOS), GPM, KF tracks
+  2) Run geometry/performance_metrics.py -> write RMSE metrics CSV
+  3) Run estimationandfiltering/plot_timeseries.py -> write HTML plot
   4) Centralize everything under exports/orchestrator/<RUN_ID> (symlinks when possible)
   5) Emit a manifest.json with config, counts, time windows, and paths
 
@@ -95,7 +95,7 @@ def _run(cmd: list[str], env: Optional[dict] = None, quiet: bool = True, label: 
 # -----------------------------------------------------------------------------
 
 def _latest_run_id() -> Optional[str]:
-    """Pick the most recent run id. Preference: tracks → gpm → truth."""
+    """Pick the most recent run id. Preference: tracks -> gpm -> truth."""
     for root in [REPO / "exports" / "tracks",
                  REPO / "exports" / "gpm",
                  REPO / "exports" / "aligned_ephems" / "targets_ephems"]:
@@ -180,7 +180,7 @@ def _centralize_outputs(run_id: str) -> Path:
     total = 0
     for key, sdir in src.items():
         total += _mirror_dir(sdir, root / key, patterns.get(key, ("*",)))
-    print(f"[OK ] centralized → {root} (files: {total})")
+    print(f"[OK ] centralized -> {root} (files: {total})")
     return root
 
 
@@ -390,7 +390,7 @@ def _write_run_manifest(run_id: str) -> Path:
     out_path.parent.mkdir(parents=True, exist_ok=True)
     with out_path.open("w", encoding="utf-8") as f:
         json.dump(manifest, f, indent=2)
-    print(f"[OK ] manifest → {out_path}")
+    print(f"[OK ] manifest -> {out_path}")
     return out_path
 
 
@@ -478,7 +478,7 @@ def main() -> int:
         )
         summary_html = report_paths.get("summary", {}).get("html")
         if summary_html:
-            print(f"[OK ] report → {summary_html}")
+            print(f"[OK ] report -> {summary_html}")
         else:
             print("[OK ] report generated")
     except Exception as exc:  # pragma: no cover - pipeline safeguard

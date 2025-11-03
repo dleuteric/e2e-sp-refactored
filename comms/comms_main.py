@@ -181,9 +181,9 @@ def _discover_gpm_csv(run_id: str, target: Optional[str]) -> Optional[Path]:
 # ----------------------------
 
 def step_A_data_age() -> None:
-    """Run per-satellite LOS→arrival processing, if needed."""
+    """Run per-satellite LOS->arrival processing, if needed."""
     if PER_SAT_DIR.exists() and any(PER_SAT_DIR.glob("*.csv")) and not FORCE_RERUN:
-        _log(f"[SKIP] per-sat already present → {PER_SAT_DIR}")
+        _log(f"[SKIP] per-sat already present -> {PER_SAT_DIR}")
         return
 
     _log("[STEP A] run_data_age_from_los.py")
@@ -209,13 +209,13 @@ def step_A_data_age() -> None:
     if not (PER_SAT_DIR.exists() and any(PER_SAT_DIR.glob("*.csv"))):
         _log("[WARN] Step A produced no per-sat CSVs. Check LOS inputs.")
     else:
-        _log(f"[OK] per-sat → {PER_SAT_DIR}")
+        _log(f"[OK] per-sat -> {PER_SAT_DIR}")
 
 
 def step_B_provenance_ground() -> None:
     """Build ground-processing provenance attached to the FILTERED TRACK."""
     if GROUND_AGE_CSV.exists() and not FORCE_RERUN:
-        _log(f"[SKIP] ground provenance already present → {GROUND_AGE_CSV}")
+        _log(f"[SKIP] ground provenance already present -> {GROUND_AGE_CSV}")
         return
 
     _log("[STEP B] provenance.py (ground, track-based)")
@@ -259,7 +259,7 @@ def step_B_provenance_ground() -> None:
 def step_C_onboard_provenance() -> None:
     """Build onboard-processing provenance attached to the FILTERED TRACK."""
     if ONBOARD_AGE_CSV.exists() and not FORCE_RERUN:
-        _log(f"[SKIP] onboard provenance already present → {ONBOARD_AGE_CSV}")
+        _log(f"[SKIP] onboard provenance already present -> {ONBOARD_AGE_CSV}")
         return
 
     _log("[STEP C] onboard_processing.py (track-driven)")
@@ -341,7 +341,7 @@ def step_D_build_aged_tracks(age_mode: str) -> List[Path]:
         _ensure_dir(out_csv.parent)
         out.to_csv(out_csv, index=False)
         produced.append(out_csv)
-        _log(f"[OK] Aged track → {out_csv}")
+        _log(f"[OK] Aged track -> {out_csv}")
 
     if age_mode in ("ground", "both") and GROUND_AGE_CSV.exists():
         _merge_age(TRACK_CSV, GROUND_AGE_CSV, "measurement_age_ms", AGED_TRACK_GROUND)
@@ -412,8 +412,8 @@ def step_E_centralize_outputs(age_mode: str, produced_tracks: List[Path]) -> Pat
     man_path = bundle_dir / f"manifest_{RUN_ID}_{TARGET}_{const_tag}.json"
     with open(man_path, "w") as f:
         json.dump(manifest, f, indent=2)
-    _log(f"[OK] Bundle → {bundle_dir}")
-    _log(f"[OK] Manifest → {man_path}")
+    _log(f"[OK] Bundle -> {bundle_dir}")
+    _log(f"[OK] Manifest -> {man_path}")
     return bundle_dir
 
 

@@ -29,7 +29,7 @@ def main():
         for f in sat_files[:5]:  # Show first 5
             print(f"  - {f.name}")
     else:
-        print("❌ Directory not found!")
+        print("[FAIL] Directory not found!")
         return 1
 
     # Try to generate plots
@@ -40,19 +40,19 @@ def main():
         figures = generate_constellation_plots(RUN_ID, TARGET_ID)
 
         if figures:
-            print(f"✓ Generated {len(figures)} figure(s):")
+            print(f"[OK] Generated {len(figures)} figure(s):")
             for name, fig in figures.items():
                 print(f"  - {name}: {fig.layout.title.text}")
         else:
-            print("✗ No figures returned (empty dict)")
+            print("[FAIL] No figures returned (empty dict)")
 
         return 0
 
     except ImportError as e:
-        print(f"❌ Import error: {e}")
+        print(f"[FAIL] Import error: {e}")
         return 1
     except Exception as e:
-        print(f"❌ Generation failed: {e}")
+        print(f"[FAIL] Generation failed: {e}")
         import traceback
         traceback.print_exc()
         return 1

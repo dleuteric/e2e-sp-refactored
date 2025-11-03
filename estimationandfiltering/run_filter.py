@@ -152,12 +152,12 @@ def _log(level: str, msg: str) -> None:
 
 
 if _BACKEND == "filterpy" and _filterpy_run_forward is None:
-    _log("WARN", "FilterPy backend richiesto ma modulo non disponibile → fallback legacy")
+    _log("WARN", "FilterPy backend richiesto ma modulo non disponibile -> fallback legacy")
     _BACKEND = "legacy"
     _FILTERPY_ESTIMATOR = None
 
 if _BACKEND == "adaptive" and _adaptive_run_forward is None:
-    _log("WARN", "Adaptive backend richiesto ma modulo non disponibile → fallback legacy")
+    _log("WARN", "Adaptive backend richiesto ma modulo non disponibile -> fallback legacy")
     _BACKEND = "legacy"
 
 if _BACKEND == "filterpy":
@@ -356,7 +356,7 @@ def main() -> None:
         return
 
     _log("INFO", f"Loader mode: {mode}")
-    _log("INFO", f"Targets: {len(by_target)} → {list(by_target.keys())}")
+    _log("INFO", f"Targets: {len(by_target)} -> {list(by_target.keys())}")
 
     for tgt, meas in by_target.items():
         try:
@@ -374,7 +374,7 @@ def main() -> None:
 
             if TRACK_UPDATE_RATE_HZ and TRACK_UPDATE_RATE_HZ > 0:
                 hist_resampled = _resample_history(hist, TRACK_UPDATE_RATE_HZ)
-                _log("INFO", f"{tgt}: resampled {len(hist)}→{len(hist_resampled)} epochs @ {TRACK_UPDATE_RATE_HZ:.3f} Hz")
+                _log("INFO", f"{tgt}: resampled {len(hist)}->{len(hist_resampled)} epochs @ {TRACK_UPDATE_RATE_HZ:.3f} Hz")
                 hist = hist_resampled
 
             # Serializzazione CSV

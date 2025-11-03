@@ -35,9 +35,9 @@ def validate_benchmarks():
 
     # Validate against range
     if 40 <= leo_costs['baseline_unit_cost'] <= 51:
-        print("✓ PASS: Baseline unit cost within SDA PWSA range ($40-51M)")
+        print("[OK] PASS: Baseline unit cost within SDA PWSA range ($40-51M)")
     else:
-        print("✗ FAIL: Baseline unit cost outside SDA PWSA range")
+        print("[FAIL] FAIL: Baseline unit cost outside SDA PWSA range")
     print()
 
     # Benchmark 2: Resilient MW/MT (MEO)
@@ -59,9 +59,9 @@ def validate_benchmarks():
 
     # Validate
     if 64 <= meo_costs['baseline_unit_cost'] <= 120:
-        print("✓ PASS: Baseline within Resilient MW/MT range ($64-120M)")
+        print("[OK] PASS: Baseline within Resilient MW/MT range ($64-120M)")
     else:
-        print("✗ FAIL: Baseline outside Resilient MW/MT range")
+        print("[FAIL] FAIL: Baseline outside Resilient MW/MT range")
     print()
 
     # Benchmark 3: SBIRS GEO
@@ -83,9 +83,9 @@ def validate_benchmarks():
 
     # Validate
     if 900 <= geo_costs['baseline_unit_cost'] <= 1500:
-        print("✓ PASS: Baseline within SBIRS/Next-Gen OPIR range ($900M-1.5B)")
+        print("[OK] PASS: Baseline within SBIRS/Next-Gen OPIR range ($900M-1.5B)")
     else:
-        print("✗ FAIL: Baseline outside SBIRS/Next-Gen OPIR range")
+        print("[FAIL] FAIL: Baseline outside SBIRS/Next-Gen OPIR range")
     print()
 
     # Learning curve validation
@@ -106,16 +106,16 @@ def validate_benchmarks():
     all_pass = True
     for qty, exp in zip(test_quantities, expected):
         factor = model.get_learning_curve_factor(qty)
-        status = "✓" if abs(factor - exp) < 0.01 else "✗"
+        status = "[OK]" if abs(factor - exp) < 0.01 else "[FAIL]"
         print(f"  {qty:3d} satellites: {factor:.2f}x (expected {exp:.2f}x) {status}")
         if abs(factor - exp) >= 0.01:
             all_pass = False
 
     print()
     if all_pass:
-        print("✓ PASS: All learning curve factors correct")
+        print("[OK] PASS: All learning curve factors correct")
     else:
-        print("✗ FAIL: Some learning curve factors incorrect")
+        print("[FAIL] FAIL: Some learning curve factors incorrect")
     print()
 
     # Order of magnitude checks
@@ -133,9 +133,9 @@ def validate_benchmarks():
         total = costs['total_program_cost']
 
         if min_cost <= total <= max_cost:
-            status = "✓ PASS"
+            status = "[OK] PASS"
         else:
-            status = "✗ FAIL"
+            status = "[FAIL] FAIL"
 
         print(f"{label}:")
         print(f"  Total program cost: ${total:.0f}M")
@@ -148,11 +148,11 @@ def validate_benchmarks():
     print("=" * 80)
     print()
     print("Summary:")
-    print("✓ LEO costs match SDA PWSA contracts ($40-51M)")
-    print("✓ MEO costs within Resilient MW/MT range ($64-120M)")
-    print("✓ GEO costs match SBIRS/Next-Gen OPIR ($900M-1.5B)")
-    print("✓ Learning curves follow aerospace industry standards")
-    print("✓ Total program costs are order-of-magnitude correct")
+    print("[OK] LEO costs match SDA PWSA contracts ($40-51M)")
+    print("[OK] MEO costs within Resilient MW/MT range ($64-120M)")
+    print("[OK] GEO costs match SBIRS/Next-Gen OPIR ($900M-1.5B)")
+    print("[OK] Learning curves follow aerospace industry standards")
+    print("[OK] Total program costs are order-of-magnitude correct")
     print()
     print("All cost baselines derived from PUBLIC sources:")
     print("- SDA PWSA contract awards")

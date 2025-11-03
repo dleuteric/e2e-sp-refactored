@@ -1,5 +1,5 @@
 """
-frames.py — minimal ICRF → ECEF utilities (km, km/s, km/s^2)
+frames.py — minimal ICRF -> ECEF utilities (km, km/s, km/s^2)
 
 Assumptions:
 - Input state is expressed in ICRF (J2000 inertial) at UTC timestamps.
@@ -8,8 +8,8 @@ Assumptions:
 
 Formulas:
     r_e = R * r_i
-    v_e = R * ( v_i - ω × r_i )
-    a_e = R * ( a_i - 2 ω × v_i - ω × ( ω × r_i ) )
+    v_e = R * ( v_i - ω x r_i )
+    a_e = R * ( a_i - 2 ω x v_i - ω x ( ω x r_i ) )
 where ω = [0, 0, ω_EARTH] and R = Rz(θ) with θ = θ_GAST ≈ θ_GMST(UTC).
 
 For high-precision needs (IAU2006/2000A, nutation/polar motion), this should be replaced

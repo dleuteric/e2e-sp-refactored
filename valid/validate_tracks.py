@@ -142,7 +142,7 @@ def main():
         f"Δ‖a‖ med/p95: {M['med_delta_acc_g']:.3f} / {M['p95_delta_acc_g']:.3f} g\n"
         f"pos step med/max: {M['med_step_km']:.4f} / {M['max_step_km']:.4f} km\n"
         f"dt med/IQR: {M['dt_med_s']:.3f} / {M['dt_iqr_s']:.3f} s\n"
-        f"alt range: {M['alt_min_km']:.1f} → {M['alt_max_km']:.1f} km\n"
+        f"alt range: {M['alt_min_km']:.1f} -> {M['alt_max_km']:.1f} km\n"
         f"NIS med/p95: {M['nis_med']:.3f} / {M['nis_p95']:.3f}    Nsats med: {M['nsats_med']:.1f}"
     )
     ax1.text(0.995, 0.02, text, transform=ax1.transAxes, ha="right", va="bottom",
